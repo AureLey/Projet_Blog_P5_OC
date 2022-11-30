@@ -1,0 +1,29 @@
+{
+    "name": "aleyg/p5",
+    "description": "Projet 5_OC-Blog",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src",
+            "Aleyg\\Core\\" : "core",
+            "Config\\" : "config"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aurélien L",
+            "email": "a.leygnac@gmail.com"
+        }
+    ],
+    "require": {
+        "composer/composer": "^2.4",
+        "twig/twig": "^3.4",
+        "symfony/http-foundation": "^6.1",
+        "symfony/routing": "^6.1",
+        "symfony/twig-bridge": "^6.1",
+        "monolog/monolog": "^3.2"
+    },
+    "config": {
+
+        "platform-check": false
+    }
+}

@@ -1,0 +1,24 @@
+{% extends "admin/template/baseAdmin.html.twig" %}
+{% block title %}Dashboard{% endblock %}    
+    
+{% block content %}
+<div class="container mt-4">
+    <div id="layoutSidenav_content">       
+        <form method="post" action="" class="row">
+            <div class="form-group border border-info mb-5 p-5 ml-5 mr-5">
+                <div class="text-center mb-4"><h2 class="fw-bold">Création d'une nouvelle catégorie</h2></div>
+                <p class="lead fw-bold">
+                    Catégorie : 
+                    <input class="form-control mb-3" type="text" name="name" placeholder="Nom" required> 
+                </p>
+                <p class="lead fw-bold">
+                    Slug : 
+                    <input class="form-control mb-3" type="text" name="slug" placeholder="Slug" required>
+                    <input name="usertoken" type="hidden" value="{{session.get('usertoken')}}">
+                </p>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>                
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

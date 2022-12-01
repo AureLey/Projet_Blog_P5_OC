@@ -1,0 +1,28 @@
+{% extends "admin/template/baseAdmin.html.twig" %}
+{% block css %}<link href="css/stylesadmin.css" rel="stylesheet" />{% endblock %} 
+{% block title %}Dashboard{% endblock %}    
+    
+{% block content %}
+    <div class="container mt-4">
+        <div id="layoutSidenav_content">       
+            <form method="post" action="">
+            
+                <div class="form-group border border-info mb-5 p-5 ml-5 mr-5">
+                    <div class="text-center mb-4"><h2 class="fw-bold">Modification d'une catégorie</h2></div>
+                    <p class="lead fw-bold">
+                        Catégorie : 
+                        <input class="form-control mb-3" type="text" name="name" placeholder="Nom" value ="{{category.name}}" required> 
+                    </p>
+                    <p class="lead fw-bold">
+                        Slug : 
+                        <input class="form-control mb-3" type="text" name="slug" placeholder="Slug" value ="{{category.slug}}" required>
+                    </p>
+                    <input class="form-control" type="hidden" name="id" value="{{category.id}}">
+                    <input name="usertoken" type="hidden" value="{{session.get('usertoken')}}">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+{% endblock %}

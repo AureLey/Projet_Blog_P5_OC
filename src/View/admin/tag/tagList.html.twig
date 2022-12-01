@@ -1,0 +1,45 @@
+{% extends "admin/template/baseAdmin.html.twig" %}
+{% block css %}{% endblock %}   
+    
+{% block content %}
+        <div id="layoutSidenav_content">
+            <main>                    
+                    <div class="card mb-4 my-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Liste des tags
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr class="bg-warning">
+                                        <th>Nom</th>
+                                        <th>Slug</th> 
+                                        <th>Modifier</th>
+                                        <th>Delete</th>                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tag in tags %}
+                                        <tr class="bg-light">
+                                            <td>{{ tag.name }}</td>
+                                            <td>{{ tag.slug }}</td> 
+                                            <td><a href="{{ path('admin_updatetag',{slug_tag:tag.slug}) }}" ><button type="button" class="btn btn-primary">Modifier</button></a></td>                                        
+                                            <td><a href="{{ path('admin_deletetag',{id:tag.id}) }}" class="btn btn-danger btn-circle" onclick="return window.confirm('Êtes-vous sûr de vouloir supprimer le tag?')"><i class="fas fa-trash"></i></a></td>
+                                        </tr> 
+                                    {% endfor %}                                 
+                                </tbody>
+                                <tfoot>
+                                    <tr class="bg-success">
+                                        <th>Nom</th>
+                                        <th>Slug</th>
+                                        <th>Modifier</th>
+                                        <th>Delete</th>                                        
+                                    </tr>
+                                </tfoot>                                    
+                            </table>
+                        </div>
+                    </div>                    
+            </main>
+        </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "admin/template/baseAdmin.html.twig" %}
+{% block css %}<link href="css/stylesadmin.css" rel="stylesheet" />{% endblock %} 
+{% block title %}Dashboard{% endblock %}    
+    
+{% block content %}
+
+   <div class="container mt-4">
+        <div id="layoutSidenav_content">        
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group border border-info mb-5 p-5 ml-5 mr-5">
+                    <div class="text-center mb-4"><h2 class="fw-bold">Création d'un nouvel article</h2></div>
+                    <input class="form-control mb-3" type="text" name="title" placeholder="Titre" required>
+                    <input class="form-control  mb-3" type="text" name="chapo" placeholder="Chapo"  required>
+                    <input class="form-control  mb-3" type="text" name="author" placeholder="Auteur"  required>
+                    <label for="exampleFormControlTextarea1" class="lead fw-bold mb-2">Texte de l'article</label>
+                    <textarea class="form-control  mb-5" id="exampleFormControlTextarea1" name="content" rows="3" placeholder="Contenu de l'article" required></textarea>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input mb-3" name="picture" id="customFile"  required>
+                        <label class="custom-file-label" for="customFile">Chemin de l'image</label>
+                    </div>                
+                    <label for="FormControlSelectCategories" class="lead fw-bold mb-2">Catégories</label>
+                    <select multiple name ="categories[]"   class="form-control mb-4" id="FormControlSelectCategories"  required>
+                    {% for cat in categories %}
+                        <option value ={{cat.id}}>{{cat.name}}</option>                    
+                    {% endfor %}
+                    </select> 
+                    <label for="FormControlSelectTags" class="lead fw-bold mb-2">Tags</label>
+                    <select multiple name="tags[]" class="form-control mb-4" id="FormControlSelectTags"  required>
+                    {% for tag in tags %}
+                        <option value={{tag.id}}>{{tag.name}}</option>                    
+                    {% endfor %}
+                    </select>           
+                    <input class="form-control  mb-3" type="text" name="slug" placeholder="Slug"  required>
+                    <input name="usertoken" type="hidden" value="{{session.get('usertoken')}}">
+                    <button type="submit" class="btn btn-primary  mb-3">Enregistrer</button>
+                </div>                
+            </form>
+        </div>
+    </div>
+{% endblock %}

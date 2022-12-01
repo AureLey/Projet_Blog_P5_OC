@@ -16,12 +16,12 @@
 							</a>
 							<div class="card-body">
 								<h5 class="card-title">{{ post.title }}</h5>
-								<h5 class="card-subtitle mb-2 text-muted">{{ post.author }}</h5>
+								écrit par:<h5 class="card-subtitle my-2 text-muted">{{ post.author }}</h5>
 								<p class="card-text">
 									{{ post.chapo }}
 								</p>
 								<p class="card-text">
-									<small class="text-muted">{{ post.created_at }}</small>
+									<small class="text-muted">{% if post.created_at != post.updated_at %} Mise à jour le {{post.updated_at}}{% else %} publié le  {{post.created_at}}{% endif %}</small>
 								</p>
 							</div>
 						</div>
@@ -29,12 +29,12 @@
 						<div class="card mb-3">
 							<div class="card-body">
 								<h5 class="card-title">{{ post.title }}</h5>
-								<h5 class="card-subtitle mb-2 text-muted">{{ post.author }}</h5>
+								écrit par:<h5 class="card-subtitle my-2 text-muted">{{ post.author }}</h5>
 								<p class="card-text">
 									{{ post.chapo }}
 								</p>
 								<p class="card-text">
-									<small class="text-muted">{{ post.created_at }}</small>
+									<small class="text-muted">{% if post.created_at != post.updated_at %} Mise à jour le {{post.updated_at}}{% else %} publié le  {{post.created_at}}{% endif %}</small>
 								</p>
 							</div>
 							

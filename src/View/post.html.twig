@@ -13,7 +13,7 @@
 				
 				<div class="img mb-3"><img class="img-fluid  mb-lg-0" src="/assets/img/{{post.picture}}" alt=""></div>
 				<div class="header-post d-flex justify-content-between">
-					<div class="blog-post-meta">{% if post.created_at == post.updated_at %}publié le  {{post.created_at}}{% else %} Mise à jour le {{post.updated_at}} {% endif %},
+					<div class="blog-post-meta">{% if post.created_at != post.updated_at %} Mise à jour le {{post.updated_at}}{% else %} publié le  {{post.created_at}}{% endif %},
 						by
 						<span class="author fst-italic ">
 							{{post.author}}</span>

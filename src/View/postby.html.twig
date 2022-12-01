@@ -1,0 +1,55 @@
+{% extends "template/baseTemplate.html.twig" %}
+{% block title %}Index
+{% endblock %}
+{% block navbar %}{% endblock %}
+{% block content %}
+	<section class="blog-topbarimg"></section>
+	<div class="container">
+		<div class=" cardpostrow row mb-2">			
+			<div class="col-md-9">
+				<h3 class="title-post text-info">Liste des articles :{{ selected }}</h3>			
+				{% for post in posts %}
+					{% if loop.index is divisible by(2) and post is not empty %}
+						<!--********************* CARD Bootstrap *************************-->
+						<div class="card mb-3">
+							<a href="{{ path('post', {slug_post:post.slug})}}" class="stretched-link"><img src="/assets/img/{{post.picture}}" class="card-img-top" alt="Wild Landscape"/>
+							</a>
+							<div class="card-body">
+								<h5 class="card-title">{{ post.title }}</h5>
+								écrit par:<h5 class="card-subtitle my-2 text-muted">{{ post.author }}</h5>
+								<p class="card-text">
+									{{ post.chapo }}
+								</p>
+								<p class="card-text">
+									<small class="text-muted">{% if post.created_at != post.updated_at %} Mise à jour le {{post.updated_at}}{% else %} publié le  {{post.created_at}}{% endif %}</small>
+								</p>
+							</div>
+						</div>
+					{% elseif post is not empty %}
+						<div class="card mb-3">
+							<div class="card-body">
+								<h5 class="card-title">{{ post.title }}</h5>
+								écrit par:<h5 class="card-subtitle my-2 text-muted">{{ post.author }}</h5>
+								<p class="card-text">
+									{{ post.chapo }}
+								</p>
+								<p class="card-text">
+									<small class="text-muted">{% if post.created_at != post.updated_at %} Mise à jour le {{post.updated_at}}{% else %} publié le  {{post.created_at}}{% endif %}</small>
+								</p>
+							</div>
+							
+							<a href="{{ path('post', {slug_post:post.slug})}}" class="stretched-link"><img src="../../assets/img/{{post.picture}}" class="card-img-bottom" alt="Picture"/></a>
+						</div>
+					{% else %}	
+						<div class="category-item">Aucun article ne correspond à la recherche</div>
+					{% endif %}
+				
+				{% endfor %}
+				 
+			</div>
+			{% block sidemenu %}
+				{% include 'template/sidemenu.html.twig' %}
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}

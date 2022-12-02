@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `p5_blog`
 --
-
+CREATE DATABASE IF NOT EXISTS `p5_blog` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `p5_blog`;
 -- --------------------------------------------------------
 
 --

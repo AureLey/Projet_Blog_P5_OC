@@ -23,10 +23,10 @@ class Auth
             return true;
         }
         else
-        {
-            return false;
-        }
+            return false;        
     }
+
+
     public function checkingRole($role) : bool
     {
         if(isset($role) && $role === 'admin')
@@ -34,8 +34,6 @@ class Auth
             return true;
         }
         else
-        {
-            return false;
-        }
+            return false;        
     }
 }

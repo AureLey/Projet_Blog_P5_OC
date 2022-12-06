@@ -35,16 +35,16 @@ class RegisterController extends AbstractController
                 $hash = $auth->passwordhashing($request->request->get('password'));   
                 $newuser->setPassword($hash);            
                 $newuser->setRole(ROLE_DEFAULT);                
-                $ru = new UserRepository();
+                $userRepo = new UserRepository();
 
                 
-                if($ru->ExistingUser($newuser))
+                if($userRepo->ExistingUser($newuser))
                 {
                     return new Response($this->render('signup.html.twig',['error'=>'E-mail/Pseudo utilisé']));
                 }
                 else
                 {
-                    $ru->addUser($newuser);
+                    $userRepo->addUser($newuser);
                     return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('login'));
                 }
             }
@@ -85,7 +85,7 @@ class RegisterController extends AbstractController
         {        
             if($request->getMethod() ==='POST')
             {            
-                $ru = new UserRepository();
+                $userRepoerRepo = new UserRepository();
                 $user = new User();
                 $session = new Session();
 
@@ -96,7 +96,7 @@ class RegisterController extends AbstractController
                 try 
                 {
                     $email = array(0 => $request->request->get('email'));
-                    $user =  $ru->findUser($email);                                    
+                    $user =  $userRepo->findUser($email);                                    
                     $user = $user[0]; //get an array from fetch::class in Database.php so convert user array to an user object
                     
                     if($user != NULL)
@@ -165,7 +165,7 @@ class RegisterController extends AbstractController
         {             
             if($request->getMethod() ==='POST')
             {            
-                $ru = new UserRepository();
+                $userRepo = new UserRepository();
                 $user = new User();            
                 
                 if($session->get('auth') == NULL)
@@ -176,7 +176,7 @@ class RegisterController extends AbstractController
                 try 
                 {
                     $email = array(0 => $request->request->get('email'));
-                    $user =  $ru->findUser($email);
+                    $user =  $userRepo->findUser($email);
                     $user = $user[0]; //get an array from fetch::class so convert user array to an user object                               
                     if($user != NULL)
                     {

@@ -84,9 +84,9 @@ class CategoryRepository extends AbstractRepository
     {
       $requete = "DELETE FROM category where id= ?";
               
-      $db = new Database();
-      $db->getPdo();
-      $db->parametersQuery($requete,$idCategory,Category::class);
+      $database = new Database();
+      $database->getPdo();
+      $database->parametersQuery($requete,$idCategory,Category::class);
       
     }
 }

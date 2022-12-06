@@ -40,10 +40,10 @@ class PostController extends AbstractController
                 $data = $repoPost->getOnePost($slug);                
                 //send 5 request to get the Post 
                 //then tags and categories related to this post, and 2 quest for list tag and categories
-                $rc = new CategoryRepository();
+                $repoCategory = new CategoryRepository();
                 $idPost = array(0 => $data[0]->getId());
-                $dataCategory = $rc->getAllCategory();
-                $dataselectedCat = $rc->getPostCatById($idPost);
+                $dataCategory = $repoCategory->getAllCategory();
+                $dataselectedCat = $repoCategory->getPostCatById($idPost);
                 
                 $repoTag = new TagRepository();                
                 $dataTags = $repoTag->getAllTag();

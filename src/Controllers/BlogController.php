@@ -92,8 +92,8 @@ class BlogController extends AbstractController
             $repoTag = new TagRepository();
             $tagSelected= $repoTag->getOneTag($tag)[0]->getName();//Get tag's name, who inform which tag is selected
             $dataTags = $repoTag->getAllTag();
-            $rc = new CategoryRepository();
-            $dataCategory = $rc->getAllCategory();
+            $repoCategory = new CategoryRepository();
+            $dataCategory = $repoCategory->getAllCategory();
                        
         }
         catch (PDOException $exception) {

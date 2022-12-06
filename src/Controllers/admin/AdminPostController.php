@@ -191,7 +191,7 @@ class AdminPostController extends AbstractController
                 
                     $repoComment = new CommentRepository();
                     $idPost= array(0 => $data[0]->getId());       
-                    $datacomment = $repoComment->getAllComment($id);                           
+                    $datacomment = $repoComment->getAllComment($idPost);                           
                     
                 }
                 catch (PDOException $exception) {
@@ -294,11 +294,11 @@ class AdminPostController extends AbstractController
                     
                     $idPost= array(0 => $data[0]->getId());
                     $dataCategory = $repoCategory->getAllCategory();
-                    $dataselectedCat = $repoCategory->getPostCatById($id);
+                    $dataselectedCat = $repoCategory->getPostCatById($idPost);
                     
                     $repoTag = new TagRepository();                
                     $dataTags = $repoTag->getAllTag();
-                    $dataselectedTags = $repoTag->getTagPostById($id);
+                    $dataselectedTags = $repoTag->getTagPostById($idPost);
                     
                 }
                 catch (PDOException $exception) {

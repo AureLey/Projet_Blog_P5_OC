@@ -115,9 +115,8 @@ class RegisterController extends AbstractController
                             return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('index'));
                         }
                         else
-                        {
                             return new Response($this->render('login.html.twig',['error'=>'Mauvais Login ou mot de passe']));
-                        }
+                        
                     }
                     else
                     {

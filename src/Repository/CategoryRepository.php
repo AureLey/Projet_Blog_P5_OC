@@ -15,9 +15,9 @@ class CategoryRepository extends AbstractRepository
     public function getAllCategory()
     {   
         $requete = "SELECT * FROM category";
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->query($requete,Category::class);
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->query($requete,Category::class);
         
         return $req;      
     }
@@ -30,17 +30,17 @@ class CategoryRepository extends AbstractRepository
           "slug"=> $newcategory->getSlug()
         );       
         
-        $db = new DataBase();
-        $db->getPdo();        
-        $db->modificationQuery($requete,$arrayCategory);
+        $database = new DataBase();
+        $database->getPdo();        
+        $database->modificationQuery($requete,$arrayCategory);
     }
     public function getOneCategory($slug)
     {
         $requete = "SELECT * FROM category where slug= ?";
                
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->parametersQuery($requete,$slug,Category::class);
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->parametersQuery($requete,$slug,Category::class);
         
         return $req;
     }
@@ -60,33 +60,33 @@ class CategoryRepository extends AbstractRepository
         "slug"=> $category->getSlug(),        
         "id"=> $category->getId()); 
                                  
-      $db = New Database();
-      $db->getPdo();
-      $db->modificationQuery($requete,$arrayCategory);
+      $database = New Database();
+      $database->getPdo();
+      $database->modificationQuery($requete,$arrayCategory);
         
     }
 
-    public function getPostCatById($id)
+    public function getPostCatById($idCategory)
     {
-        $db = new DataBase();         
-        $db->getPdo();
+        $database = new DataBase();         
+        $database->getPdo();
         $requete = "SELECT  category.id ,category.name, category.slug
         FROM `post_cat`
         JOIN `category`
           ON post_cat.category_id_cat = category.id        
           WHERE post_cat.post_id_post = ?";               
         
-        $req = $db->parametersQuery($requete,$id,Category::class);
+        $req = $database->parametersQuery($requete,$idCategory,Category::class);
         
         return $req;
     }
-    public function deleteCategory($id)
+    public function deleteCategory($idCategory)
     {
       $requete = "DELETE FROM category where id= ?";
               
       $db = new Database();
       $db->getPdo();
-      $db->parametersQuery($requete,$id,Category::class);
+      $db->parametersQuery($requete,$idCategory,Category::class);
       
     }
 }

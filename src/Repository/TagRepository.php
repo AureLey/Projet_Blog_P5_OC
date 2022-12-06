@@ -14,9 +14,9 @@ class TagRepository extends AbstractRepository
     public function getAllTag()
     {   
         $requete = "SELECT * FROM tag";
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->query($requete,Tag::class);
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->query($requete,Tag::class);
         
         return $req;      
     }
@@ -28,18 +28,18 @@ class TagRepository extends AbstractRepository
           "slug"=> $newtag->getSlug()
         );       
         
-        $db = new DataBase();
-        $db->getPdo();        
-        $db->modificationQuery($requete,$arrayTag);
+        $database = new DataBase();
+        $database->getPdo();        
+        $database->modificationQuery($requete,$arrayTag);
     }
 
     public function getOneTag($slug)
     {
         $requete = "SELECT * FROM tag where slug= ?";
                
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->parametersQuery($requete,$slug,Tag::class);
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->parametersQuery($requete,$slug,Tag::class);
         
         return $req;
     }
@@ -47,9 +47,9 @@ class TagRepository extends AbstractRepository
     {
         $requete = "DELETE FROM tag where id= ?";
                
-        $db = new Database();
-        $db->getPdo();
-        $db->parametersQuery($requete,$id,Tag::class);        
+        $database = new Database();
+        $database->getPdo();
+        $database->parametersQuery($requete,$id,Tag::class);        
         
     }
 
@@ -68,23 +68,23 @@ class TagRepository extends AbstractRepository
         "slug"=> $tag->getSlug(),        
         "id"=> $tag->getId()); 
                                  
-      $db = New Database();
-      $db->getPdo();
-      $db->modificationQuery($requete,$arrayTag);
+      $database = New Database();
+      $database->getPdo();
+      $database->modificationQuery($requete,$arrayTag);
         
     }
 
     public function getTagPostById($id)
     {
-      $db = new DataBase();         
-        $db->getPdo();
+      $database = new DataBase();         
+        $database->getPdo();
         $requete = "SELECT  tag.id ,tag.name, tag.slug
         FROM `tag_post`
         JOIN `tag`
           ON tag_post.tag_id = tag.id        
           WHERE tag_post.post_id = ?";               
         
-        $req = $db->parametersQuery($requete,$id,Tag::class);
+        $req = $database->parametersQuery($requete,$id,Tag::class);
         
         return $req;
     }

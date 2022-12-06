@@ -39,15 +39,14 @@ class AdminTagController extends AbstractController
                 $newtag->setName($request->request->get('name'));
                 $newtag->setSlug($request->request->get('slug'));   
 
-                $rt = new TagRepository();        
-                $rt->addTag($newtag);            
+                $repoTag = new TagRepository();        
+                $repoTag->addTag($newtag);            
 
                 return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('admin_tags'));
             }
             else
-            {
                 return new Response($this->render('admin/tag/tagForm.html.twig'));
-            }
+            
         }
         else
             return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('index'));        
@@ -66,8 +65,8 @@ class AdminTagController extends AbstractController
         {
             try
             {
-                $rt = new TagRepository();
-                $data = $rt->getAllTag();                         
+                $repoTag = new TagRepository();
+                $data = $repoTag->getAllTag();                         
             }
             catch (PDOException $exception) {
                 $this->getContainer()->get('log')->error($exception);
@@ -103,9 +102,9 @@ class AdminTagController extends AbstractController
                 $newtag->setSlug($request->request->get('slug'));
                 try
                 {
-                    $rt = new TagRepository();
-                    $rt->updateTag($newtag);
-                    $data = $rt->getAllTag();
+                    $repoTag = new TagRepository();
+                    $repoTag->updateTag($newtag);
+                    $data = $repoTag->getAllTag();
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);
@@ -119,8 +118,8 @@ class AdminTagController extends AbstractController
                 
                 try
                 {
-                    $rt = new TagRepository();
-                    $data = $rt->getOneTag($slug);                            
+                    $repoTag = new TagRepository();
+                    $data = $repoTag->getOneTag($slug);                            
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);
@@ -143,7 +142,7 @@ class AdminTagController extends AbstractController
      */
     public function deleteTagController($request)
     {           
-        $id = array(0 => $request->get('id'));
+        $idTag = array(0 => $request->get('id'));
 
         $auth = new Auth();
         $session = new session();
@@ -155,8 +154,8 @@ class AdminTagController extends AbstractController
             {        
                 try
                 {
-                    $rt = new TagRepository();
-                    $rt->deleteTag($id);                                               
+                    $repoTag = new TagRepository();
+                    $repoTag->deleteTag($idTag);                                               
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);

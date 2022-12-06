@@ -69,15 +69,15 @@ class AdminPostController extends AbstractController
 
                 //create each repository to prepare insert request,
                 //$idpost is id return by the function addPost and in this function PDO->lastInsertId
-                $rp = new PostRepository();            
-                $idpost = $rp->addPost($newpost);
+                $repoPost = new PostRepository();            
+                $idpost = $repoPost->addPost($newpost);
 
-                $rpc = new PostCatRepository();
+                $repoPostc = new PostCatRepository();
                 $rpc->addPostCat($request->request->all('categories'),$idpost);
 
                 
-                $rtp = new TagPostRepository();
-                $rtp->addTagPost($request->request->all('tags'),$idpost);
+                $repoTagPost = new TagPostRepository();
+                $repoTagPost->addTagPost($request->request->all('tags'),$idpost);
                 
                             
                 return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('admin_posts'));   
@@ -87,8 +87,8 @@ class AdminPostController extends AbstractController
                 //send 2 request to get all categories and tags to complete the creation form
                 $rc = new CategoryRepository();
                 $dataCategory = $rc->getAllCategory();
-                $rt = new TagRepository();
-                $dataTag = $rt->getAllTag();
+                $repoTag = new TagRepository();
+                $dataTag = $repoTag->getAllTag();
                 
                 return new Response($this->render('admin/post/postForm.html.twig', ['categories' => $dataCategory,'tags' => $dataTag]));            
             }
@@ -120,8 +120,8 @@ class AdminPostController extends AbstractController
                 $status_post = "En totalité";
                 try
                 {
-                    $rp = new PostRepository();
-                    $data = $rp->getAllPost();             
+                    $repoPost = new PostRepository();
+                    $data = $repoPost->getAllPost();             
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);
@@ -134,8 +134,8 @@ class AdminPostController extends AbstractController
                 
                 try
                 {
-                    $rp = new PostRepository();
-                    $data = $rp->getAllPostUnvalidComment();             
+                    $repoPost = new PostRepository();
+                    $data = $repoPost->getAllPostUnvalidComment();             
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);
@@ -169,12 +169,12 @@ class AdminPostController extends AbstractController
             {
                 try
                 {
-                    $rp = new PostRepository();
-                    $data = $rp->getOnePost($slug);               
+                    $repoPost = new PostRepository();
+                    $data = $repoPost->getOnePost($slug);               
                     
-                    $cp = new CommentRepository();
-                    $id = array(0 => $data[0]->getId());       
-                    $datacomment = $cp->getAllComment($id);                            
+                    $repoComment = new CommentRepository();
+                    $idPost= array(0 => $data[0]->getId());       
+                    $datacomment = $repoComment->getAllComment($id);                            
                     
                     $content = $this->render('admin/post/post.html.twig', ['post' => $data[0],'comments' => $datacomment]);
                 }
@@ -186,12 +186,12 @@ class AdminPostController extends AbstractController
             {
                 try
                 {
-                    $rp = new PostRepository();
-                    $data = $rp->getOnePost($slug);             
+                    $repoPost = new PostRepository();
+                    $data = $repoPost->getOnePost($slug);             
                 
-                    $cp = new CommentRepository();
-                    $id = array(0 => $data[0]->getId());       
-                    $datacomment = $cp->getAllComment($id);                           
+                    $repoComment = new CommentRepository();
+                    $idPost= array(0 => $data[0]->getId());       
+                    $datacomment = $repoComment->getAllComment($id);                           
                     
                 }
                 catch (PDOException $exception) {
@@ -255,25 +255,24 @@ class AdminPostController extends AbstractController
                     $newpost->setPicture($picture->getClientOriginalName());  
                         
                 }
-                else{
-                    
+                else
                     $newpost->setPicture($request->request->get('picture_name'));
-                }                
+                                
             
                 try
                 {
                     $idpost = array(0 => $newpost->GetId());
-                    $rp = new PostRepository();
-                    $rp->updatePost($newpost);
-                    $data = $rp->getAllPost();
+                    $repoPost = new PostRepository();
+                    $repoPost->updatePost($newpost);
+                    $data = $repoPost->getAllPost();
 
 
                     //UPDATE TABLE ASSOCIATION POST_CAT AND TAG_POST
                     $rpc = new PostCatRepository();
                 
                     $rpc->updatePostCat($request->request->all('categories'),$idpost);
-                    $rtp = new TagPostRepository();
-                    $rtp->updateTagPost($request->request->all('tags'),$idpost);
+                    $repoTagPost = new TagPostRepository();
+                    $repoTagPost->updateTagPost($request->request->all('tags'),$idpost);
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);
@@ -288,18 +287,18 @@ class AdminPostController extends AbstractController
                 try
                 {
                     $rp = new PostRepository();
-                    $data = $rp->getOnePost($slug);                
+                    $data = $repoPost->getOnePost($slug);                
                     //send 5 request to get the Post 
                     //then tags and categories related to this post, and 2 quest for list tag and categories
                     $rc = new CategoryRepository();
                     
-                    $id = array(0 => $data[0]->getId());
+                    $idPost= array(0 => $data[0]->getId());
                     $dataCategory = $rc->getAllCategory();
                     $dataselectedCat = $rc->getPostCatById($id);
                     
-                    $rt = new TagRepository();                
-                    $dataTags = $rt->getAllTag();
-                    $dataselectedTags = $rt->getTagPostById($id);
+                    $repoTag = new TagRepository();                
+                    $dataTags = $repoTag->getAllTag();
+                    $dataselectedTags = $repoTag->getTagPostById($id);
                     
                 }
                 catch (PDOException $exception) {
@@ -339,12 +338,12 @@ class AdminPostController extends AbstractController
             if($auth->tokenChecking($session->get('token'),$session->get('usertoken')))
             {        
                 //create an array =>params for execute      
-                $id = array(0 => $request->get('id'));          
+                $idPost= array(0 => $request->get('id'));          
                 
                 try
                 {
-                    $rp = new PostRepository();
-                    $rp->deletePost($id);                                               
+                    $repoPost = new PostRepository();
+                    $repoPost->deletePost($id);                                               
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);

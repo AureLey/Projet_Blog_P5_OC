@@ -14,8 +14,8 @@ class TagPostRepository extends AbstractRepository
 {
     public function addTagPost($arrayTp,$idpost)
     {   
-        $db = new DataBase();         
-        $db->getPdo();        
+        $database = new DataBase();         
+        $database->getPdo();        
         $arrayValue = [];
         foreach ($arrayTp as $value) 
         {
@@ -24,7 +24,7 @@ class TagPostRepository extends AbstractRepository
                 "idtag"=> $value);
             
             $requete = "INSERT INTO `tag_post`(`post_id`,`tag_id`) VALUES (:idpost, :idtag)";
-            $db->modificationQuery($requete,$arrayValue);     
+            $database->modificationQuery($requete,$arrayValue);     
         }      
     }
 
@@ -37,12 +37,12 @@ class TagPostRepository extends AbstractRepository
      */
     public function updateTagPost($arrayTp,$idpost)
     {
-        $db = new DataBase();         
-        $db->getPdo();
+        $database = new DataBase();         
+        $database->getPdo();
 
         $requetedel = "DELETE FROM tag_post where post_id = ?";             
         
-        $db->modificationQuery($requetedel,$idpost);
+        $database->modificationQuery($requetedel,$idpost);
 
         $arrayValue = [];
         $idpost = $idpost[0];//convert to INT for INSERT INTO QUERY
@@ -54,7 +54,7 @@ class TagPostRepository extends AbstractRepository
                 "idtag"=> $value);
             
             $requete = "INSERT INTO `tag_post`(`post_id`,`tag_id`) VALUES (:idpost, :idtag)";
-            $db->modificationQuery($requete,$arrayValue);     
+            $database->modificationQuery($requete,$arrayValue);     
         }
 
     }

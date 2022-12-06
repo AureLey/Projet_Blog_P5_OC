@@ -36,18 +36,18 @@ class PostController extends AbstractController
                         
             try
             {
-                $rp = new PostRepository();
-                $data = $rp->getOnePost($slug);                
+                $repoPost = new PostRepository();
+                $data = $repoPost->getOnePost($slug);                
                 //send 5 request to get the Post 
                 //then tags and categories related to this post, and 2 quest for list tag and categories
                 $rc = new CategoryRepository();
-                $id = array(0 => $data[0]->getId());
+                $idPost = array(0 => $data[0]->getId());
                 $dataCategory = $rc->getAllCategory();
-                $dataselectedCat = $rc->getPostCatById($id);
+                $dataselectedCat = $rc->getPostCatById($idPost);
                 
-                $rt = new TagRepository();                
-                $dataTags = $rt->getAllTag();
-                $dataselectedTags = $rt->getTagPostById($id);
+                $repoTag = new TagRepository();                
+                $dataTags = $repoTag->getAllTag();
+                $dataselectedTags = $repoTag->getTagPostById($idPost);
                 
                 $newcomment = new Comment();
                 $newcomment->setContent($request->request->get('comment'));
@@ -58,7 +58,7 @@ class PostController extends AbstractController
 
                 $rcmt = new CommentRepository();
                 $rcmt->addComment($newcomment);                
-                $dataComment = $rcmt->getAllvalidComment($id);
+                $dataComment = $rcmt->getAllvalidComment($idPost);
             }
             catch (PDOException $exception) {
                 $this->getContainer()->get('log')->error($exception);
@@ -71,22 +71,22 @@ class PostController extends AbstractController
             
             try
             {
-                $rp = new PostRepository();
-                $data = $rp->getOnePost($slug);                
+                $repoPost = new PostRepository();
+                $data = $repoPost->getOnePost($slug);                
                 //send 5 request to get the Post 
                 //then tags and categories related to this post, and 2 quest for list tag and categories
                 $rc = new CategoryRepository();
                 
-                $id = array(0 => $data[0]->getId());
+                $idPost = array(0 => $data[0]->getId());
                 $dataCategory = $rc->getAllCategory();
-                $dataselectedCat = $rc->getPostCatById($id);
+                $dataselectedCat = $rc->getPostCatById($idPost);
 
                 $rcmt = new CommentRepository();
-                $dataComment = $rcmt->getAllvalidComment($id);
+                $dataComment = $rcmt->getAllvalidComment($idPost);
                 
-                $rt = new TagRepository();                
-                $dataTags = $rt->getAllTag();
-                $dataselectedTags = $rt->getTagPostById($id);
+                $repoTag = new TagRepository();                
+                $dataTags = $repoTag->getAllTag();
+                $dataselectedTags = $repoTag->getTagPostById($idPost);
                              
             }
             catch (PDOException $exception) {

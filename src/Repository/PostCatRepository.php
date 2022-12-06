@@ -14,8 +14,8 @@ class PostCatRepository extends AbstractRepository
 {
     public function addPostCat($arrayPc,$idpost)
     {   
-        $db = new DataBase();         
-        $db->getPdo();        
+        $database = new DataBase();         
+        $database->getPdo();        
         $arrayValue = [];
         foreach ($arrayPc as $value) 
         {
@@ -24,7 +24,7 @@ class PostCatRepository extends AbstractRepository
                 "idcat"=> $value);
             
             $requete = "INSERT INTO `post_cat`(`post_id_post`,`category_id_cat`) VALUES (:idpost, :idcat)";
-            $db->modificationQuery($requete,$arrayValue);     
+            $database->modificationQuery($requete,$arrayValue);     
         }      
     }
     
@@ -37,12 +37,12 @@ class PostCatRepository extends AbstractRepository
      */
     public function updatePostCat($arrayPc,$idpost)
     {
-        $db = new DataBase();         
-        $db->getPdo();
+        $database = new DataBase();         
+        $database->getPdo();
 
         $requetedel = "DELETE FROM post_cat where post_id_post = ?";             
         
-        $db->modificationQuery($requetedel,$idpost);
+        $database->modificationQuery($requetedel,$idpost);
 
         $arrayValue = [];
         $idpost = $idpost[0];//convert to INT for INSERT INTO QUERY
@@ -54,7 +54,7 @@ class PostCatRepository extends AbstractRepository
                 "idcat"=> $value);
             
             $requete = "INSERT INTO `post_cat`(`post_id_post`,`category_id_cat`) VALUES (:idpost, :idcat)";
-            $db->modificationQuery($requete,$arrayValue);     
+            $database->modificationQuery($requete,$arrayValue);     
         }
 
     }

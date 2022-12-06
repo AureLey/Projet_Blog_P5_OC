@@ -135,7 +135,7 @@ class AdminUserController extends AbstractController
                 try
                 {
                     $userRepo = new UserRepository();
-                    $data = $userRepo->getOneUser($id);                            
+                    $data = $userRepo->getOneUser($idUser);                            
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);
@@ -170,7 +170,7 @@ class AdminUserController extends AbstractController
                 try
                 {
                     $userRepo = new UserRepository();
-                    $userRepo->deleteUser($id);                                            
+                    $userRepo->deleteUser($idUser);                                            
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);

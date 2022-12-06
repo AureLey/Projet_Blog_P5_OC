@@ -60,9 +60,9 @@ class BlogController extends AbstractController
         {
             $repoPost = new PostRepository();
             $dataPostbyCat = $repoPost->getPostByCat($category);
-            $rc = new CategoryRepository();           
-            $categorySelected= $rc->getOneCategory($category)[0]->getName();//Get category's name, who inform which tag is selected
-            $dataCategory = $rc->getAllCategory(); 
+            $repoCategory = new CategoryRepository();           
+            $categorySelected= $repoCategory->getOneCategory($category)[0]->getName();//Get category's name, who inform which tag is selected
+            $dataCategory = $repoCategory->getAllCategory(); 
             $repoTag = new TagRepository();
             $dataTags = $repoTag->getAllTag();
                     

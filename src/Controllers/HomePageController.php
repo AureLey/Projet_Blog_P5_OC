@@ -27,10 +27,6 @@ class HomePageController extends AbstractController
             return new Response($this->render('home.html.twig', ['title'=> 'Developper needed', 'register'=> 'false']));
         }
         else
-        {            
             return new Response($this->render('home.html.twig', ['title'=> 'Developper needed', 'register'=> 'false','session' =>$session]));           
-                    
-        }
-        
     }
 }

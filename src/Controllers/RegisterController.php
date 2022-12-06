@@ -85,7 +85,7 @@ class RegisterController extends AbstractController
         {        
             if($request->getMethod() ==='POST')
             {            
-                $userRepoerRepo = new UserRepository();
+                $userRepo = new UserRepository();
                 $user = new User();
                 $session = new Session();
 

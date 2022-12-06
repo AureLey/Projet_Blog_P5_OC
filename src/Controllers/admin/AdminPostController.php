@@ -72,8 +72,8 @@ class AdminPostController extends AbstractController
                 $repoPost = new PostRepository();            
                 $idpost = $repoPost->addPost($newpost);
 
-                $repoPostc = new PostCatRepository();
-                $rpc->addPostCat($request->request->all('categories'),$idpost);
+                $repoPostCategory = new PostCatRepository();
+                $repoPostCategory->addPostCat($request->request->all('categories'),$idpost);
 
                 
                 $repoTagPost = new TagPostRepository();
@@ -85,8 +85,8 @@ class AdminPostController extends AbstractController
             else
             {
                 //send 2 request to get all categories and tags to complete the creation form
-                $rc = new CategoryRepository();
-                $dataCategory = $rc->getAllCategory();
+                $repoCategory = new CategoryRepository();
+                $dataCategory = $repoCategory->getAllCategory();
                 $repoTag = new TagRepository();
                 $dataTag = $repoTag->getAllTag();
                 
@@ -174,7 +174,7 @@ class AdminPostController extends AbstractController
                     
                     $repoComment = new CommentRepository();
                     $idPost= array(0 => $data[0]->getId());       
-                    $datacomment = $repoComment->getAllComment($id);                            
+                    $datacomment = $repoComment->getAllComment($idPost);                            
                     
                     $content = $this->render('admin/post/post.html.twig', ['post' => $data[0],'comments' => $datacomment]);
                 }
@@ -268,9 +268,9 @@ class AdminPostController extends AbstractController
 
 
                     //UPDATE TABLE ASSOCIATION POST_CAT AND TAG_POST
-                    $rpc = new PostCatRepository();
+                    $repoPostCategory = new PostCatRepository();
                 
-                    $rpc->updatePostCat($request->request->all('categories'),$idpost);
+                    $repoPostCategory->updatePostCat($request->request->all('categories'),$idpost);
                     $repoTagPost = new TagPostRepository();
                     $repoTagPost->updateTagPost($request->request->all('tags'),$idpost);
                 }
@@ -286,15 +286,15 @@ class AdminPostController extends AbstractController
                 
                 try
                 {
-                    $rp = new PostRepository();
+                    $repoPost = new PostRepository();
                     $data = $repoPost->getOnePost($slug);                
                     //send 5 request to get the Post 
                     //then tags and categories related to this post, and 2 quest for list tag and categories
-                    $rc = new CategoryRepository();
+                    $repoCategory = new CategoryRepository();
                     
                     $idPost= array(0 => $data[0]->getId());
-                    $dataCategory = $rc->getAllCategory();
-                    $dataselectedCat = $rc->getPostCatById($id);
+                    $dataCategory = $repoCategory->getAllCategory();
+                    $dataselectedCat = $repoCategory->getPostCatById($id);
                     
                     $repoTag = new TagRepository();                
                     $dataTags = $repoTag->getAllTag();
@@ -343,7 +343,7 @@ class AdminPostController extends AbstractController
                 try
                 {
                     $repoPost = new PostRepository();
-                    $repoPost->deletePost($id);                                               
+                    $repoPost->deletePost($idPost);                                               
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);

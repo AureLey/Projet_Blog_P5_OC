@@ -19,8 +19,8 @@ class AdminController extends AbstractController
         {
             try
             {
-                $rp = new UserRepository();
-                $dataUsers = $rp->getAllUser();             
+                $repoPost = new UserRepository();
+                $dataUsers = $repoPost->getAllUser();             
             }
             catch (PDOException $exception) {
                 $this->getContainer()->get('log')->error($exception);

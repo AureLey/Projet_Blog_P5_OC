@@ -14,18 +14,18 @@ class PostRepository extends AbstractRepository
     public function getAllPost()
     {   
         $requete = "SELECT * FROM post  ORDER BY created_at DESC";
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->query($requete,Post::class);        
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->query($requete,Post::class);        
         return $req;      
     }
     public function getOnePost($slug)
     {
         $requete = "SELECT * FROM post where slug= ?";
                
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->parametersQuery($requete,$slug,Post::class);
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->parametersQuery($requete,$slug,Post::class);
         
         return $req;
     }
@@ -39,9 +39,9 @@ class PostRepository extends AbstractRepository
                   ON post.id = comment.post_id
                   WHERE comment.comment_status = 0 GROUP BY post.id";
                
-      $db = new Database();
-      $db->getPdo();
-      $req = $db->query($requete,Post::class);
+      $database = new Database();
+      $database->getPdo();
+      $req = $database->query($requete,Post::class);
       
       return $req;
     }
@@ -58,9 +58,9 @@ class PostRepository extends AbstractRepository
           ON tag_post.tag_id = tag.id
           WHERE tag.slug = ? GROUP BY post.id ORDER BY created_at DESC";
         
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->parametersQuery($requete,$slugTag,Post::class);
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->parametersQuery($requete,$slugTag,Post::class);
         
         return $req;
     }
@@ -76,9 +76,9 @@ class PostRepository extends AbstractRepository
           ON post_cat.category_id_cat = category.id
           WHERE category.slug = ? GROUP BY post.id ORDER BY created_at DESC";
         
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->parametersQuery($requete,$slugCategory,Post::class);
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->parametersQuery($requete,$slugCategory,Post::class);
         
         return $req;
     }
@@ -98,11 +98,11 @@ class PostRepository extends AbstractRepository
           "user_id"=> $newPost->getUser_id(),
         );
         
-        $db = new DataBase();
-        $db->getPdo();        
-        $db->modificationQuery($requete,$arrayPost);
+        $database = new DataBase();
+        $database->getPdo();        
+        $database->modificationQuery($requete,$arrayPost);
 
-        return $db->getPdo()->lastInsertId();
+        return $database->getPdo()->lastInsertId();
         
     }
     public function updatePost($post)
@@ -133,19 +133,19 @@ class PostRepository extends AbstractRepository
         "updated_at"=> $post->getUpdated_at(),
         "user_id"=> $post->getUser_id(),
         "id"=> $post->getId());                           
-      $db = New Database();
-      $db->getPdo();
-      $db->modificationQuery($requete,$arrayPost);     
+      $database = New Database();
+      $database->getPdo();
+      $database->modificationQuery($requete,$arrayPost);     
         
     }
 
-    public function deletePost($id)
+    public function deletePost($idPost)
     {
       $requete = "DELETE FROM post where id= ?";
               
-      $db = new Database();
-      $db->getPdo();
-      $db->parametersQuery($requete,$id,Post::class);      
+      $database = new Database();
+      $database->getPdo();
+      $database->parametersQuery($requete,$idPost,Post::class);      
       
     }
 }

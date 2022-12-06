@@ -47,15 +47,14 @@ class AdminUserController extends AbstractController
                 $newuser->setPassword($hash);
                 $newuser->setRole($request->get('role'));              
                 
-                $ru = new UserRepository();        
-                $ru->addUser($newuser);             
+                $userRepo = new UserRepository();        
+                $userRepo->addUser($newuser);             
 
                 return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('admin_users'));
             }
-            else
-            {
+            else            
                 return new Response($this->render('admin/user/userForm.html.twig'));
-            }
+            
         }
         else
             return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('index'));
@@ -74,8 +73,8 @@ class AdminUserController extends AbstractController
         {
             try
             {
-                $rp = new UserRepository();
-                $dataUsers = $rp->getAllUser();             
+                $userRepo = new UserRepository();
+                $dataUsers = $userRepo->getAllUser();             
             }
             catch (PDOException $exception) {
                 $this->getContainer()->get('log')->error($exception);
@@ -119,9 +118,9 @@ class AdminUserController extends AbstractController
 
                 try
                 {
-                    $ru = new UserRepository();
-                    $ru->updateUser($newuser);
-                    $data = $ru->getAllUser();
+                    $userRepo = new UserRepository();
+                    $userRepo->updateUser($newuser);
+                    $data = $userRepo->getAllUser();
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);
@@ -131,12 +130,12 @@ class AdminUserController extends AbstractController
             }
             else
             {                                          
-                $id = array(0 =>$request->get('id'));       
+                $idUser= array(0 =>$request->get('id'));       
                 
                 try
                 {
-                    $ru = new UserRepository();
-                    $data = $ru->getOneUser($id);                            
+                    $userRepo = new UserRepository();
+                    $data = $userRepo->getOneUser($id);                            
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);
@@ -160,7 +159,7 @@ class AdminUserController extends AbstractController
      */
     public function deleteUserController($request)
     {
-        $id = array(0 =>$request->get('id'));          
+        $idUser= array(0 =>$request->get('id'));          
         $auth = new Auth();
         $session = new session();
 
@@ -170,8 +169,8 @@ class AdminUserController extends AbstractController
             {
                 try
                 {
-                    $ru = new UserRepository();
-                    $ru->deleteUser($id);                                            
+                    $userRepo = new UserRepository();
+                    $userRepo->deleteUser($id);                                            
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);

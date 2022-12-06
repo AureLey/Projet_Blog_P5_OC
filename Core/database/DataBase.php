@@ -18,14 +18,15 @@ class DataBase {
     private $db_password;
     private $db_host;
     private $pdo;
+   
 
-    public function __construct($db_name = 'p5_blog',$db_user = 'root', $db_password = '', $db_host = 'localhost' )
+    public function __construct()
     {
-        
-        $this->db_name = $db_name;
-        $this->db_user = $db_user;
-        $this->db_password = $db_password;
-        $this->db_host = $db_host;
+        $config = include __ROOT__.'/config/database.php';
+        $this->db_name = $config['db_name'];
+        $this->db_user = $config['db_user'];
+        $this->db_password = $config['db_password']?: '';
+        $this->db_host = $config['db_host'] ;
     }
 
     private function getLog()
@@ -39,7 +40,7 @@ class DataBase {
     {
         if($this->pdo === null)
         {
-            $pdo = new PDO('mysql:dbname=p5_blog;host=localhost','root','');            
+            $pdo = new PDO('mysql:dbname='.$this->db_name.';host='.$this->db_host,$this->db_user,$this->db_password);            
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //$pdo->query("SET NAMES UTF8");
             $this->pdo = $pdo;
@@ -86,9 +87,8 @@ class DataBase {
             $data = array(0 => $data);                     
         }
         else
-        {
             $data = $req->fetchAll();                      
-        }     
+             
         return $data;
     }
 

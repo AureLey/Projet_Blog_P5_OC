@@ -30,12 +30,12 @@ class BlogController extends AbstractController
         
         try
         {
-            $rp = new PostRepository();
-            $dataPost = $rp->getAllPost();
-            $rc = new CategoryRepository();
-            $dataCategory = $rc->getAllCategory();
-            $rt = new TagRepository();
-            $dataTag = $rt->getAllTag();           
+            $repoPost = new PostRepository();
+            $dataPost = $repoPost->getAllPost();
+            $repoCategory = new CategoryRepository();
+            $dataCategory = $repoCategory->getAllCategory();
+            $repoTag = new TagRepository();
+            $dataTag = $repoTag->getAllTag();           
         }
         catch (PDOException $exception) {            
             $this->getContainer()->get('log')->error($exception);
@@ -58,13 +58,13 @@ class BlogController extends AbstractController
             
         try
         {
-            $rp = new PostRepository();
-            $dataPostbyCat = $rp->getPostByCat($category);
+            $repoPost = new PostRepository();
+            $dataPostbyCat = $repoPost->getPostByCat($category);
             $rc = new CategoryRepository();           
             $categorySelected= $rc->getOneCategory($category)[0]->getName();//Get category's name, who inform which tag is selected
             $dataCategory = $rc->getAllCategory(); 
-            $rt = new TagRepository();
-            $dataTags = $rt->getAllTag();
+            $repoTag = new TagRepository();
+            $dataTags = $repoTag->getAllTag();
                     
         }
         catch (PDOException $exception) {
@@ -87,11 +87,11 @@ class BlogController extends AbstractController
         
         try
         {
-            $rp = new PostRepository();
-            $dataPostbyTag = $rp->getPostByTag($tag);
-            $rt = new TagRepository();
-            $tagSelected= $rt->getOneTag($tag)[0]->getName();//Get tag's name, who inform which tag is selected
-            $dataTags = $rt->getAllTag();
+            $repoPost = new PostRepository();
+            $dataPostbyTag = $repoPost->getPostByTag($tag);
+            $repoTag = new TagRepository();
+            $tagSelected= $repoTag->getOneTag($tag)[0]->getName();//Get tag's name, who inform which tag is selected
+            $dataTags = $repoTag->getAllTag();
             $rc = new CategoryRepository();
             $dataCategory = $rc->getAllCategory();
                        

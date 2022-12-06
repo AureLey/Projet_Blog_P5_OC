@@ -10,7 +10,7 @@ use Aleyg\Core\DataBase\Database;
 
 class CommentRepository extends AbstractRepository
 {
-    public function getAllComment($id)
+    public function getAllComment($idPost)
     {
         //$requete = "SELECT * FROM comment where post_id= ?";
         //get User nickname from User table, to print it in comment section content + author
@@ -19,9 +19,9 @@ class CommentRepository extends AbstractRepository
                     JOIN user
                     ON comment.user_id = user.id     
                     WHERE comment.post_id = ? ORDER BY comment.id DESC";     
-        $db = new Database();
-        $db->getPdo();        
-        $req = $db->parametersQuery($requete,$id,Comment::class);
+        $database = new Database();
+        $database->getPdo();        
+        $req = $database->parametersQuery($requete,$idPost,Comment::class);
         
         return $req;
     }
@@ -40,12 +40,12 @@ class CommentRepository extends AbstractRepository
           "user_id"=> $newcomment->getUser_id()
         );       
         
-        $db = new DataBase();
-        $db->getPdo(); 
-        $db->modificationQuery($requete,$arrayComment);
+        $database = new DataBase();
+        $database->getPdo(); 
+        $database->modificationQuery($requete,$arrayComment);
     }
 
-    public function getAllUnvalidComment($id)
+    public function getAllUnvalidComment($idPost)
     {
         //$requete = "SELECT * FROM comment where post_id= ?";
         //get User nickname from User table, to print it in comment section content + author
@@ -56,14 +56,14 @@ class CommentRepository extends AbstractRepository
                     WHERE comment.post_id = ?
                     AND comment.comment_status = 0
                     GROUP BY comment.id";     
-        $db = new Database();
-        $db->getPdo();        
-        $req = $db->parametersQuery($requete,$id,Comment::class);
+        $database = new Database();
+        $database->getPdo();        
+        $req = $database->parametersQuery($requete,$idPost,Comment::class);
         
         return $req;
     }
 
-    public function getAllvalidComment($id)
+    public function getAllvalidComment($idPost)
     {
         //$requete = "SELECT * FROM comment where post_id= ?";
         //get User nickname from User table, to print it in comment section content + author
@@ -74,23 +74,23 @@ class CommentRepository extends AbstractRepository
                     WHERE comment.post_id = ?
                     AND comment.comment_status = 1
                     GROUP BY comment.id";     
-        $db = new Database();
-        $db->getPdo();        
-        $req = $db->parametersQuery($requete,$id,Comment::class);
+        $database = new Database();
+        $database->getPdo();        
+        $req = $database->parametersQuery($requete,$idPost,Comment::class);
         
         return $req;
     }
 
-    public function getComment($id)
+    public function getComment($idPost)
     { 
         $requete = "SELECT comment.*, user.nickname
                     FROM comment
                     JOIN user
                     ON comment.user_id = user.id     
                     WHERE comment.id = ?";     
-        $db = new Database();
-        $db->getPdo();        
-        $req = $db->parametersQuery($requete,$id,Comment::class);
+        $database = new Database();
+        $database->getPdo();        
+        $req = $database->parametersQuery($requete,$idPost,Comment::class);
         
         return $req;
     }
@@ -98,8 +98,8 @@ class CommentRepository extends AbstractRepository
     public function setValidComment($idcomment)
     {
         $requete ="UPDATE `comment` SET `comment_status`= 1 WHERE `id`=?";
-        $db = new DataBase();
-        $db->getPdo(); 
-        $db->modificationQuery($requete,$idcomment);
+        $database = new DataBase();
+        $database->getPdo(); 
+        $database->modificationQuery($requete,$idcomment);
     }
 }

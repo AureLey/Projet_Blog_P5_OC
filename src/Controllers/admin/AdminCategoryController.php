@@ -47,9 +47,8 @@ class AdminCategoryController extends AbstractController
                 return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('admin_categories'));
             }
             else
-            {
                 return new Response($this->render('admin/category/categoryForm.html.twig'));
-            }
+            
         }
         else
             return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('index')); 
@@ -157,12 +156,12 @@ class AdminCategoryController extends AbstractController
             if($auth->tokenChecking($session->get('token'),$session->get('usertoken')))
             {           
                 //create an array =>params for execute      
-                $id = array(0 => $request->attributes->get('id'));          
+                $idPost = array(0 => $request->attributes->get('id'));          
                 
                 try
                 {
                     $rc = new CategoryRepository();
-                    $rc->deleteCategory($id);                                                
+                    $rc->deleteCategory($idPost);                                                
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);

@@ -27,19 +27,19 @@ class AdminCommentController extends AbstractController
         
         if($this->checkingAuth())
         {
-            $id = array(0 => $request->attributes->get('id'));
+            $idPost = array(0 => $request->attributes->get('id'));
             $slug = array(0 => $request->attributes->get('slug_post'));
             
             if($request->getMethod() ==='POST'&& $auth->tokenChecking($session->get('token'),$request->request->get('usertoken')))
             {               
                 try
                 {                
-                    $cp = new CommentRepository();                
-                    $cp->setValidComment($id);                
+                    $repoComment = new CommentRepository();                
+                    $repoComment->setValidComment($idPost);                
                     $pr = new PostRepository();
                     $data = $pr->getOnePost($slug);
                     $idpost = array(0 => $data[0]->getId());
-                    $datacomment = $cp->getAllComment($idpost);
+                    $datacomment = $repoComment->getAllComment($idpost);
                     
                 }
                 catch (PDOException $exception )
@@ -57,8 +57,8 @@ class AdminCommentController extends AbstractController
                     $pr = new PostRepository();
                     $data = $pr->getOnePost($slug);                           
                     
-                    $cp = new CommentRepository();
-                    $datacomment = $cp->getComment($id);
+                    $repoComment = new CommentRepository();
+                    $datacomment = $repoComment->getComment($idPost);
                 }
                 catch (PDOException $exception) {
                     $this->getContainer()->get('log')->error($exception);

@@ -14,9 +14,9 @@ class UserRepository extends AbstractRepository
     public function getAllUser()
     {   
       $requete = "SELECT * FROM user";
-      $db = new Database();
-      $db->getPdo();
-      $req = $db->query($requete,User::class);
+      $database = new Database();
+      $database->getPdo();
+      $req = $database->query($requete,User::class);
       
       return $req;      
     }
@@ -33,9 +33,9 @@ class UserRepository extends AbstractRepository
         "role"=> $newuser->getRole()
       );       
       
-      $db = new DataBase();
-      $db->getPdo();        
-      $db->modificationQuery($requete,$arrayCategory);
+      $database = new DataBase();
+      $database->getPdo();        
+      $database->modificationQuery($requete,$arrayCategory);
       
     }
     //checking if email or nickname already used (SQL constraint)
@@ -43,21 +43,19 @@ class UserRepository extends AbstractRepository
     {
         $requete = "SELECT * FROM user where email= :email or nickname = :nickname";
                
-        $db = new Database();
-        $db->getPdo();        
+        $database = new Database();
+        $database->getPdo();        
         $arrayUser = array(
           "nickname" => $user->getNickname(),
           "email"=> $user->getEmail());
-        $req = $db->parametersQuery($requete,$arrayUser,User::class);
+        $req = $database->parametersQuery($requete,$arrayUser,User::class);
         
         if($req[0] != false)
         {
           return true;
         }
         else
-        {
-          return false;
-        }
+          return false;        
     }
 
 
@@ -84,29 +82,29 @@ class UserRepository extends AbstractRepository
         "role"=> $user->getRole(),        
         "id"=> $user->getId()); 
                                  
-      $db = New Database();
-      $db->getPdo();
-      $db->modificationQuery($requete,$arrayUser);
+      $database = New Database();
+      $database->getPdo();
+      $database->modificationQuery($requete,$arrayUser);
     }
 
-    public function getOneUser($id)
+    public function getOneUser($idUser)
     {
         $requete = "SELECT * FROM user where id= ?";
                
-        $db = new Database();
-        $db->getPdo();
-        $req = $db->parametersQuery($requete,$id,User::class);
+        $database = new Database();
+        $database->getPdo();
+        $req = $database->parametersQuery($requete,$idUser,User::class);
         
         return $req;
     }
     
-    public function deleteUser($id)
+    public function deleteUser($idUser)
     {
       $requete = "DELETE FROM user where id= ?";
               
-      $db = new Database();
-      $db->getPdo();
-      $db->parametersQuery($requete,$id,User::class);
+      $database = new Database();
+      $database->getPdo();
+      $database->parametersQuery($requete,$idUser,User::class);
       
     }
 
@@ -114,9 +112,9 @@ class UserRepository extends AbstractRepository
     {
         
         $requete = "SELECT * FROM user where email= ?";               
-        $db = new Database();
-        $db->getPdo();
-        $datauser = $db->parametersQuery($requete,$user,User::class);        
+        $database = new Database();
+        $database->getPdo();
+        $datauser = $database->parametersQuery($requete,$user,User::class);        
 
         return $datauser;      
     }

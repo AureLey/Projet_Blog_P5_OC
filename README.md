@@ -9,14 +9,15 @@ Set PHP in 8.1
 
 Get git repository
 
+```
 git clone https://github.com/AureLey/Projet_Blog_P5_OC.git
-
+```
 
 Get composer dependencies
 
-
+```
 composer install
-
+```
 
 Database setup
 
@@ -24,6 +25,7 @@ Add SQL script, P5_script&data.sql
 
 Créer un fichier config/database.php
 
+```
 <?php
 
 return [
@@ -32,15 +34,19 @@ return [
     'db_password' => 'Mot de passe',
     'db_host' => 'localhost',
 ];
-
+```
 
 
 Admin login 
 
+```
 email : admin@admin.fr
 password : admin
+```
 
 User login:
 
+```
 email: tyrion@lannister.got	
 password: admin
+```

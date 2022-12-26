@@ -21,7 +21,10 @@ composer install
 
 Database setup
 
-Add SQL script, P5_script&data.sql
+Add SQL script 
+```
+P5_script&data.sql
+```
 
 Créer un fichier config/database.php
 

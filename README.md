@@ -2,6 +2,7 @@
 
 Projet 5 OpenClassrooms-Blog 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/654c7e4722544438b00ea9d75b74c85e)](https://www.codacy.com/gh/AureLey/Projet_Blog_P5_OC/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AureLey/Projet_Blog_P5_OC&amp;utm_campaign=Badge_Grade)
+
 Setup
 
 Set PHP in 8.1

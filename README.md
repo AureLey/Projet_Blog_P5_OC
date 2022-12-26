@@ -23,7 +23,7 @@ Database setup
 
 Add SQL script 
 ```
-P5_script&data.sql
+p5_blog_script&data.sql
 ```
 
 Créer un fichier config/database.php

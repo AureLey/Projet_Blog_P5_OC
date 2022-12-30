@@ -7,6 +7,8 @@ Setup
 
 Set PHP in 8.1
 
+Configure web server to expose public folder
+
 Get git repository
 
 ```

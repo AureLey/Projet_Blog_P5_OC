@@ -22,16 +22,20 @@ class PostController extends AbstractController
     /**
      * GetPostController return one post via Slug field
      *
-     * @param  mixed $request return by index.php attributes[]
-     * @return void
+     * @param Request $request return by index.php attributes[]
+     * @return Response
      */
-    public function getPostController($request)
+    public function getPostController($request):Response
     {
         $session = new Session();
 
-        //Methode POST if one comment was send
+        //REFACTORISATION POSSIBLE CODE DUPLIQUé
+        
+
+        //Checking if Method is POST then handle comment's form then add it in DB OR 
         if($request->getMethod() ==='POST')
         {
+            //repo function ask array as parameter
             $slug = array(0 => $request->attributes->get('slug_post'));
                         
             try
@@ -50,11 +54,11 @@ class PostController extends AbstractController
                 $dataselectedTags = $repoTag->getTagPostById($idPost);
                 
                 $newcomment = new Comment();
-                $newcomment->setContent($request->request->get('comment'));
-                $newcomment->setComment_status(0);
-                $newcomment->setPost_id($data[0]->getId());
-                $newcomment->setUser_id($session->get('id'));
-                $newcomment->setNickname($session->get('nickname'));
+                $newcomment ->setContent($request->request->get('comment'))
+                            ->setComment_status(0)
+                            ->setPost_id($data[0]->getId())
+                            ->setUser_id($session->get('id'))
+                            ->setNickname($session->get('nickname'));
 
                 $rcmt = new CommentRepository();
                 $rcmt->addComment($newcomment);                
@@ -66,7 +70,7 @@ class PostController extends AbstractController
         }
         else
         {
-            // create an array, and take slug of the post
+            //Repo function asked array as parameter
             $slug = array(0 => $request->attributes->get('slug_post'));        
             
             try

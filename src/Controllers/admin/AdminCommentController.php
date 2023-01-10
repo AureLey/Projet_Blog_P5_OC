@@ -19,8 +19,15 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class AdminCommentController extends AbstractController
 {
-
-    public function validCommentController($request)
+        
+    /**
+     * validCommentController
+     *
+     * @param  mixed $request
+     * @return Response or RedirectResponse 
+     * Get the infos of the comment then if POST method the comment is valid,and back to the post with comments list
+     */
+    public function validCommentController($request):Response|RedirectResponse
     {  
         $auth = new Auth();
         $session = new session();

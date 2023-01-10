@@ -11,8 +11,14 @@ use Aleyg\Core\DataBase\Database;
 
 class CategoryRepository extends AbstractRepository
 {
-    
-    public function getAllCategory()
+        
+    /**
+     * getAllCategory
+     *
+     * Get All category 
+     * @return void
+     */
+    public function getAllCategory(): array
     {   
         $requete = "SELECT * FROM category";
         $database = new Database();
@@ -20,7 +26,12 @@ class CategoryRepository extends AbstractRepository
         $req = $database->query($requete,Category::class);
         
         return $req;      
-    }
+    }    
+    /**
+     * addCategory
+     * ADD a category
+     * @param  Category $newcategory 
+     */
     public function addCategory($newcategory)
     {
         $requete = "INSERT INTO `category`(`id`,`name`, `slug`) VALUES (:id, :name, :slug)";        
@@ -34,7 +45,14 @@ class CategoryRepository extends AbstractRepository
         $database->getPdo();        
         $database->modificationQuery($requete,$arrayCategory);
     }
-    public function getOneCategory($slug)
+        
+    /**
+     * getOneCategory
+     * Get ONE category by (array)slug
+     * @param  array $slug
+     * @return void
+     */
+    public function getOneCategory($slug):array
     {
         $requete = "SELECT * FROM category where slug= ?";
                
@@ -44,7 +62,13 @@ class CategoryRepository extends AbstractRepository
         
         return $req;
     }
-    
+        
+    /**
+     * updateCategory
+     * Update one category then change all content needed
+     * @param Category $category
+     * 
+     */
     public function updateCategory($category)
     {
       //Requete UPDATE
@@ -65,8 +89,15 @@ class CategoryRepository extends AbstractRepository
       $database->modificationQuery($requete,$arrayCategory);
         
     }
+    
+    /**
+     * getPostCatById
+     * Get all categories relative to one post 
+     * @param  array $idCategory
+     * @return arrray
+     */
 
-    public function getPostCatById($idCategory)
+    public function getPostCatById($idPost): array
     {
         $database = new DataBase();         
         $database->getPdo();
@@ -76,10 +107,18 @@ class CategoryRepository extends AbstractRepository
           ON post_cat.category_id_cat = category.id        
           WHERE post_cat.post_id_post = ?";               
         
-        $req = $database->parametersQuery($requete,$idCategory,Category::class);
+        $req = $database->parametersQuery($requete,$idPost,Category::class);
         
         return $req;
     }
+
+        
+    /**
+     * deleteCategory
+     * Delete category by Id
+     * @param  mixed $idCategory
+     * @return void
+     */
     public function deleteCategory($idCategory)
     {
       $requete = "DELETE FROM category where id= ?";

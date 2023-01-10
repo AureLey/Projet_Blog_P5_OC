@@ -11,7 +11,14 @@ use Aleyg\Core\DataBase\Database;
 
 class TagRepository extends AbstractRepository
 {
-    public function getAllTag()
+
+      
+    /**
+     * getAllTag
+     * Get list of all tag
+     * @return array
+     */
+    public function getAllTag():array
     {   
         $requete = "SELECT * FROM tag";
         $database = new Database();
@@ -20,6 +27,13 @@ class TagRepository extends AbstractRepository
         
         return $req;      
     }
+
+        
+    /**
+     * addTag
+     * Add ONE with (object) $newtag infos
+     * @param  Tag $newtag
+     */
     public function addTag($newtag)
     {
         $requete = "INSERT INTO `tag`(`name`, `slug`) VALUES (:name, :slug)";        
@@ -33,7 +47,14 @@ class TagRepository extends AbstractRepository
         $database->modificationQuery($requete,$arrayTag);
     }
 
-    public function getOneTag($slug)
+        
+    /**
+     * getOneTag
+     * get ONE TAG by his slug $slug
+     * @param  array $slug
+     * @return array
+     */
+    public function getOneTag($slug): array
     {
         $requete = "SELECT * FROM tag where slug= ?";
                
@@ -43,6 +64,13 @@ class TagRepository extends AbstractRepository
         
         return $req;
     }
+
+        
+    /**
+     * deleteTag
+     * Delete ONE tag by his id $id
+     * @param  array $id     
+     */
     public function deleteTag($id)
     {
         $requete = "DELETE FROM tag where id= ?";
@@ -52,7 +80,12 @@ class TagRepository extends AbstractRepository
         $database->parametersQuery($requete,$id,Tag::class);        
         
     }
-
+    
+    /**
+     * updateTag
+     * Update Tag infos
+     * @param  Tag $tag
+     */
     public function updateTag($tag)
     {
       //Requete UPDATE
@@ -73,10 +106,16 @@ class TagRepository extends AbstractRepository
       $database->modificationQuery($requete,$arrayTag);
         
     }
-
-    public function getTagPostById($id)
+    
+    /**
+     * getTagPostById
+     * Return list of tags relative to ONE Post with id $id
+     * @param  array $id
+     * @return array
+     */
+    public function getTagPostById($id):array
     {
-      $database = new DataBase();         
+        $database = new DataBase();         
         $database->getPdo();
         $requete = "SELECT  tag.id ,tag.name, tag.slug
         FROM `tag_post`

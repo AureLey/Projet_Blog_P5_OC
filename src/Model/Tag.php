@@ -26,7 +26,7 @@ class Tag
     /**
      * Get the value of id
      */ 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -36,7 +36,7 @@ class Tag
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setId($id): self
     {
         $this->id = $id;
 
@@ -46,7 +46,7 @@ class Tag
     /**
      * Get the value of name
      */ 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -56,7 +56,7 @@ class Tag
      *
      * @return  self
      */ 
-    public function setName($name)
+    public function setName($name): self
     {
         $this->name = $name;
 
@@ -66,7 +66,7 @@ class Tag
     /**
      * Get the value of slug
      */ 
-    public function getSlug()
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -76,7 +76,7 @@ class Tag
      *
      * @return  self
      */ 
-    public function setSlug($slug)
+    public function setSlug($slug): self
     {
         $this->slug = $slug;
 

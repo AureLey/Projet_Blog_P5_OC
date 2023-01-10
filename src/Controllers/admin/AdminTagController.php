@@ -22,22 +22,24 @@ class AdminTagController extends AbstractController
      * newTagController
      *
      * @param  mixed $request httpFoundationRequest
-     * @return twig render
+     * @return :Response|RedirectResponse
      * get infos in $request by POST method then send request in repository if not send creation form
      */
-    public function newTagController($request)
+    public function newTagController($request):Response|RedirectResponse
     {
         $auth = new Auth();
         $session = new session();
 
+        //checking role of user
         if($this->checkingAuth())
         {
+            //Handle New Tag Form or Send it
             if($request->getMethod() ==='POST'&& $auth->tokenChecking($session->get('token'),$request->request->get('usertoken')))
             {               
                 //object creation
                 $newtag = new Tag();
-                $newtag->setName($request->request->get('name'));
-                $newtag->setSlug($request->request->get('slug'));   
+                $newtag ->setName($request->request->get('name'))
+                        ->setSlug($request->request->get('slug'));   
 
                 $repoTag = new TagRepository();        
                 $repoTag->addTag($newtag);            
@@ -56,11 +58,12 @@ class AdminTagController extends AbstractController
     /**
      * getAllTagController
      *
-     * @return twig render
+     * @return :Response|RedirectResponse
      * Send a request to get All infos in the table
      */
-    public function getAllTagController()
+    public function getAllTagController():Response|RedirectResponse
     {
+        //checking role of user
         if($this->checkingAuth())
         {
             try
@@ -83,23 +86,24 @@ class AdminTagController extends AbstractController
      * updateTagController
      *
      * @param  mixed $request httpFoundationRequest
-     * @return twig render
+     * @return Response|RedirectResponse
      * get infos in $request by POST method then send request in repository if not send prefilled update form
      */
-    public function updateTagController($request)
+    public function updateTagController($request):Response|RedirectResponse
     {
         $auth = new Auth();
         $session = new session();
-
+        //checking role of user
         if($this->checkingAuth())
         {
+            //handle Update Tag Form or send it
             if($request->getMethod() ==='POST'&& $auth->tokenChecking($session->get('token'),$request->request->get('usertoken')))
             {
-                
+                //Tag modification by request then DB updated
                 $newtag = new Tag();              
-                $newtag->setid($request->request->get('id'));
-                $newtag->setName($request->request->get('name'));     
-                $newtag->setSlug($request->request->get('slug'));
+                $newtag ->setid($request->request->get('id'))
+                        ->setName($request->request->get('name'))     
+                        ->setSlug($request->request->get('slug'));
                 try
                 {
                     $repoTag = new TagRepository();
@@ -113,7 +117,8 @@ class AdminTagController extends AbstractController
                 return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('admin_tags'));
             }
             else
-            {        
+            {   
+                //repo function ask array as parameter     
                 $slug = array(0 => $request->get('slug_tag'));          
                 
                 try
@@ -137,19 +142,21 @@ class AdminTagController extends AbstractController
      * deleteTagController
      *
      * @param  mixed $request
-     * @return twig render
+     * @return RedirectResponse
      * get id from request then send delete request to repository then return the list
      */
-    public function deleteTagController($request)
-    {           
+    public function deleteTagController($request):RedirectResponse
+    {   
+        //repo function ask array as parameter        
         $idTag = array(0 => $request->get('id'));
 
         $auth = new Auth();
         $session = new session();
 
+        //chekcing role of user
         if($this->checkingAuth())
         {
-
+            //checking CSRF Token then delete tag by id
             if($auth->tokenChecking($session->get('token'),$session->get('usertoken')))
             {        
                 try

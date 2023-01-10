@@ -11,7 +11,14 @@ use Aleyg\Core\DataBase\Database;
 
 class UserRepository extends AbstractRepository
 {
-    public function getAllUser()
+
+        
+    /**
+     * getAllUser
+     * Return All User 
+     * @return array
+     */
+    public function getAllUser(): array
     {   
       $requete = "SELECT * FROM user";
       $database = new Database();
@@ -20,6 +27,13 @@ class UserRepository extends AbstractRepository
       
       return $req;      
     }
+
+        
+    /**
+     * addUser
+     * Add New USER and get infos from (object)$newuser
+     * @param  User $newuser
+     */
     public function addUser($newuser)
     {
      
@@ -38,8 +52,15 @@ class UserRepository extends AbstractRepository
       $database->modificationQuery($requete,$arrayCategory);
       
     }
-    //checking if email or nickname already used (SQL constraint)
-    public function ExistingUser($user)
+    
+        
+    /**
+     * ExistingUser
+     * checking if email or nickname already used (SQL constraint)
+     * @param  User $user
+     * @return bool
+     */
+    public function ExistingUser($user): bool
     {
         $requete = "SELECT * FROM user where email= :email or nickname = :nickname";
                
@@ -58,7 +79,12 @@ class UserRepository extends AbstractRepository
           return false;        
     }
 
-
+    
+    /**
+     * updateUser
+     * Update User's infos from (object)$user
+     * @param  User $user
+     */
     public function updateUser($user)
     {
       //Requete UPDATE
@@ -87,7 +113,14 @@ class UserRepository extends AbstractRepository
       $database->modificationQuery($requete,$arrayUser);
     }
 
-    public function getOneUser($idUser)
+        
+    /**
+     * getOneUser
+     * Get ONE User with his id $idUser
+     * @param  array $idUser
+     * @return array
+     */
+    public function getOneUser($idUser): array
     {
         $requete = "SELECT * FROM user where id= ?";
                
@@ -98,6 +131,12 @@ class UserRepository extends AbstractRepository
         return $req;
     }
     
+        
+    /**
+     * deleteUser
+     * Delete One User by his id $idUser
+     * @param  array $idUser
+     */
     public function deleteUser($idUser)
     {
       $requete = "DELETE FROM user where id= ?";
@@ -108,7 +147,14 @@ class UserRepository extends AbstractRepository
       
     }
 
-    public function findUser($user)
+        
+    /**
+     * findUser
+     * Find ONE User by his Email($user)
+     * @param  array $user
+     * @return array
+     */
+    public function findUser($user): array
     {
         
         $requete = "SELECT * FROM user where email= ?";               

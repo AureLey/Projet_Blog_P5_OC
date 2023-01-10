@@ -22,12 +22,12 @@ class BlogController extends AbstractController
     /**
      * getAllPost
      *
-     * @return twig render
+     * @return Response
      * Send a request to get All infos in the table
      */
-    public function getAllPost()
+    public function getAllPost():Response
     {
-        
+        //Get All Infos for main Blog page
         try
         {
             $repoPost = new PostRepository();
@@ -48,10 +48,10 @@ class BlogController extends AbstractController
     /**
      * getPostByCat
      *
-     * @return twig render
+     * @return Response
      * Send a request to get All post related to one category
      */
-    public function getPostByCat($request)
+    public function getPostByCat($request):Response
     {        
         // create an array, and take slug of the category 
         $category = array(0 => $request->attributes->get('slug_category'));
@@ -77,10 +77,10 @@ class BlogController extends AbstractController
     /**
      * getPostByTag
      *
-     * @return twig render
+     * @return Response
      * Send a request to get All post related to one tag
      */
-    public function getPostByTag($request)
+    public function getPostByTag($request):Response
     {  
         // create an array, and take slug of the tag                        
         $tag = array(0 => $request->attributes->get('slug_tag'));         

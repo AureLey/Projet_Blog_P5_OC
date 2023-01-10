@@ -20,7 +20,7 @@ class User
     /**
      * Get the value of id
      */ 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -30,7 +30,7 @@ class User
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setId($id): self
     {
         $this->id = $id;
 
@@ -40,7 +40,7 @@ class User
     /**
      * Get the value of name
      */ 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -50,7 +50,7 @@ class User
      *
      * @return  self
      */ 
-    public function setName($name)
+    public function setName($name): self
     {
         $this->name = $name;
 
@@ -60,7 +60,7 @@ class User
     /**
      * Get the value of surname
      */ 
-    public function getSurname()
+    public function getSurname(): ?string
     {
         return $this->surname;
     }
@@ -70,7 +70,7 @@ class User
      *
      * @return  self
      */ 
-    public function setSurname($surname)
+    public function setSurname($surname): self
     {
         $this->surname = $surname;
 
@@ -80,7 +80,7 @@ class User
     /**
      * Get the value of email
      */ 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -90,7 +90,7 @@ class User
      *
      * @return  self
      */ 
-    public function setEmail($email)
+    public function setEmail($email): self
     {
         $this->email = $email;
 
@@ -100,7 +100,7 @@ class User
     /**
      * Get the value of password
      */ 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -110,7 +110,7 @@ class User
      *
      * @return  self
      */ 
-    public function setPassword($password)
+    public function setPassword($password): self
     {
         $this->password = $password;
 
@@ -120,7 +120,7 @@ class User
     /**
      * Get the value of role
      */ 
-    public function getRole()
+    public function getRole(): ?string
     {
         return $this->role;
     }
@@ -130,7 +130,7 @@ class User
      *
      * @return  self
      */ 
-    public function setRole($role)
+    public function setRole($role): self
     {
         $this->role = $role;
 
@@ -140,7 +140,7 @@ class User
     /**
      * Get the value of nickname
      */ 
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->nickname;
     }
@@ -150,7 +150,7 @@ class User
      *
      * @return  self
      */ 
-    public function setNickname($nickname)
+    public function setNickname($nickname): self
     {
         $this->nickname = $nickname;
 

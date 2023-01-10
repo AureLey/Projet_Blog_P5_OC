@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use DateTime;
+
 /**
  * Post class represent a blog post and his attributs
  */
@@ -38,7 +40,7 @@ class Post
     /**
      * Get the value of id
      */ 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -48,7 +50,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setId($id): self
     {
         $this->id = $id;
 
@@ -58,7 +60,7 @@ class Post
     /**
      * Get the value of title
      */ 
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -68,7 +70,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setTitle($title)
+    public function setTitle($title): self
     {
         $this->title = $title;
 
@@ -78,7 +80,7 @@ class Post
     /**
      * Get the value of chapo
      */ 
-    public function getChapo()
+    public function getChapo(): ?string
     {
         return $this->chapo;
     }
@@ -87,7 +89,7 @@ class Post
      * Set the value of chapo
      * @return  self
      */ 
-    public function setChapo($chapo)
+    public function setChapo($chapo): self
     {
         $this->chapo = $chapo;
 
@@ -97,7 +99,7 @@ class Post
     /**
      * Get the value of author
      */ 
-    public function getAuthor()
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
@@ -107,7 +109,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setAuthor($author)
+    public function setAuthor($author): self
     {
         $this->author = $author;
 
@@ -117,7 +119,7 @@ class Post
     /**
      * Get the value of content
      */ 
-    public function getContent()
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -127,7 +129,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setContent($content)
+    public function setContent($content): self
     {
         $this->content = $content;
 
@@ -137,7 +139,7 @@ class Post
     /**
      * Get the value of img
      */ 
-    public function getPicture()
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
@@ -147,7 +149,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setPicture($picture)
+    public function setPicture($picture): self
     {
         $this->picture = $picture;
 
@@ -157,7 +159,7 @@ class Post
     /**
      * Get the value of slug
      */ 
-    public function getSlug()
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
@@ -167,7 +169,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setSlug($slug)
+    public function setSlug($slug): self
     {
         $this->slug = $slug;
 
@@ -187,7 +189,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setCreated_at($created_at)
+    public function setCreated_at($created_at): self
     {
         $this->created_at = $created_at;
 
@@ -207,7 +209,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setUpdated_at($updated_at)
+    public function setUpdated_at($updated_at): self
     {
         $this->updated_at = $updated_at;
 
@@ -217,7 +219,7 @@ class Post
     /**
      * Get the value of user_id
      */ 
-    public function getUser_id()
+    public function getUser_id(): ?int
     {
         return $this->user_id;
     }
@@ -227,7 +229,7 @@ class Post
      *
      * @return  self
      */ 
-    public function setUser_id($user_id)
+    public function setUser_id($user_id): self
     {
         $this->user_id = $user_id;
 

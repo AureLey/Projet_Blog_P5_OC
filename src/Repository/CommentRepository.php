@@ -10,7 +10,15 @@ use Aleyg\Core\DataBase\Database;
 
 class CommentRepository extends AbstractRepository
 {
-    public function getAllComment($idPost)
+
+        
+    /**
+     * getAllComment
+     * Return All comments relative to $idPost
+     * @param  array $idPost
+     * @return array
+     */
+    public function getAllComment($idPost):array
     {
         //$requete = "SELECT * FROM comment where post_id= ?";
         //get User nickname from User table, to print it in comment section content + author
@@ -27,7 +35,13 @@ class CommentRepository extends AbstractRepository
     }
 
 
-
+    
+    /**
+     * addComment
+     * Add One comment to a Post and get info 
+     * @param  Comment $newcomment
+     * 
+     */
     public function addComment($newcomment)
     {
         $requete = "INSERT INTO `comment`(`content`, `comment_status`, `post_id`, `user_id`) VALUES (:content, :comment_status,:post_id,:user_id)";        
@@ -45,7 +59,14 @@ class CommentRepository extends AbstractRepository
         $database->modificationQuery($requete,$arrayComment);
     }
 
-    public function getAllUnvalidComment($idPost)
+        
+    /**
+     * getAllUnvalidComment
+     * get all Comment "Unvalid" mean comment_status = 0, who needs admin's validation
+     * @param  array $idPost
+     * @return array
+     */
+    public function getAllUnvalidComment($idPost):array
     {
         //$requete = "SELECT * FROM comment where post_id= ?";
         //get User nickname from User table, to print it in comment section content + author
@@ -63,7 +84,14 @@ class CommentRepository extends AbstractRepository
         return $req;
     }
 
-    public function getAllvalidComment($idPost)
+        
+    /**
+     * getAllvalidComment
+     * get all valid comment from $idpost
+     * @param  array $idPost
+     * @return array
+     */
+    public function getAllvalidComment($idPost):array
     {
         //$requete = "SELECT * FROM comment where post_id= ?";
         //get User nickname from User table, to print it in comment section content + author
@@ -80,8 +108,14 @@ class CommentRepository extends AbstractRepository
         
         return $req;
     }
-
-    public function getComment($idPost)
+    
+    /**
+     * getComment
+     * get all infos of the comment find with $idpost
+     * @param  mixed $idPost
+     * @return array
+     */
+    public function getComment($idPost): array
     { 
         $requete = "SELECT comment.*, user.nickname
                     FROM comment
@@ -95,6 +129,12 @@ class CommentRepository extends AbstractRepository
         return $req;
     }
 
+        
+    /**
+     * setValidComment
+     * Change Status of the comment to 1, meaning the comment can be see on Post page
+     * @param  array $idcomment     
+     */
     public function setValidComment($idcomment)
     {
         $requete ="UPDATE `comment` SET `comment_status`= 1 WHERE `id`=?";

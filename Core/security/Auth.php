@@ -4,6 +4,8 @@ namespace Aleyg\Core\Security;
 
 class Auth 
 {
+
+    // SECURITY HASH PASSWORD & TOKEN CREATION AND CHECKING & CHECKING ROLES
     public function passwordhashing($password)
     {
         $hash = password_hash($password, PASSWORD_DEFAULT);

@@ -10,8 +10,13 @@ use Aleyg\Core\DataBase\Database;
 
 class PostRepository extends AbstractRepository
 {
-    
-    public function getAllPost()
+        
+    /**
+     * getAllPost
+     * Return All post and by DESC
+     * @return array
+     */
+    public function getAllPost(): array
     {   
         $requete = "SELECT * FROM post  ORDER BY created_at DESC";
         $database = new Database();
@@ -19,7 +24,15 @@ class PostRepository extends AbstractRepository
         $req = $database->query($requete,Post::class);        
         return $req;      
     }
-    public function getOnePost($slug)
+
+    
+    /**
+     * getOnePost
+     * Return ONE Post with $slug
+     * @param  array $slug
+     * @return array
+     */
+    public function getOnePost($slug): array
     {
         $requete = "SELECT * FROM post where slug= ?";
                
@@ -29,8 +42,13 @@ class PostRepository extends AbstractRepository
         
         return $req;
     }
-    
-    public function getAllPostUnvalidComment()
+        
+    /**
+     * getAllPostUnvalidComment
+     *  Return List of Post,these posts have one comment who need to be valided
+     * @return array
+     */
+    public function getAllPostUnvalidComment(): array
     {      
       //This query find any post with unvalid comment => comment.comment_status bool to 0
       $requete = "SELECT post.*
@@ -46,8 +64,14 @@ class PostRepository extends AbstractRepository
       return $req;
     }
 
-
-    public function getPostByTag($slugTag)
+    
+    /**
+     * getPostByTag
+     * Return the list of post with $slugtag as parameter
+     * @param  array $slugTag
+     * @return array
+     */
+    public function getPostByTag($slugTag): array
     {
         
         $requete = "SELECT post.id, post.title, post.chapo, post.author, post.content, post.picture, post.slug, post.created_at, post.updated_at, post.user_id,tag.name
@@ -65,7 +89,14 @@ class PostRepository extends AbstractRepository
         return $req;
     }
 
-    public function getPostByCat($slugCategory)
+        
+    /**
+     * getPostByCat
+     * Return the list of post with $slugCategory as parameter
+     * @param  mixed $slugCategory
+     * @return array
+     */
+    public function getPostByCat($slugCategory):array
     {
         
         $requete = "SELECT post.id, post.title, post.chapo, post.author, post.content, post.picture, post.slug, post.created_at, post.updated_at, post.user_id,category.name
@@ -82,6 +113,13 @@ class PostRepository extends AbstractRepository
         
         return $req;
     }
+
+        
+    /**
+     * addPost
+     * Add ONE post to DB with (object)$newPost infos
+     * @param  Post $newPost     
+     */
     public function addPost($newPost)
     {
         $requete = "INSERT INTO `post`(`id`, `title`, `chapo`, `author`, `content`, `picture`, `slug`, `created_at`, `updated_at`, `user_id`) VALUES (:id, :title, :chapo, :author, :content, :picture, :slug, :created_at, :updated_at, :user_id)";
@@ -105,6 +143,13 @@ class PostRepository extends AbstractRepository
         return $database->getPdo()->lastInsertId();
         
     }
+
+        
+    /**
+     * updatePost
+     * Request to update infos of (object)$post
+     * @param  array $post     
+     */
     public function updatePost($post)
     {
       //Requete UPDATE
@@ -139,6 +184,12 @@ class PostRepository extends AbstractRepository
         
     }
 
+        
+    /**
+     * deletePost
+     * Delete ONE post by id $idPost
+     * @param  array $idPost     
+     */
     public function deletePost($idPost)
     {
       $requete = "DELETE FROM post where id= ?";

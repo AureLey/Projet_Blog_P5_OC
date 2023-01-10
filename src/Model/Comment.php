@@ -17,7 +17,7 @@ class Comment
     /**
      * Get the value of id
      */ 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -27,7 +27,7 @@ class Comment
      *
      * @return  self
      */ 
-    public function setId($id)
+    public function setId($id): self
     {
         $this->id = $id;
 
@@ -38,7 +38,7 @@ class Comment
     /**
      * Get the value of content
      */ 
-    public function getContent()
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -48,7 +48,7 @@ class Comment
      *
      * @return  self
      */ 
-    public function setContent($content)
+    public function setContent($content): self
     {
         $this->content = $content;
 
@@ -58,7 +58,7 @@ class Comment
     /**
      * Get the value of comment_status
      */ 
-    public function getComment_status()
+    public function getComment_status(): ?int
     {
         return $this->comment_status;
     }
@@ -68,7 +68,7 @@ class Comment
      *
      * @return  self
      */ 
-    public function setComment_status($comment_status)
+    public function setComment_status($comment_status): self
     {
         $this->comment_status = $comment_status;
 
@@ -78,7 +78,7 @@ class Comment
     /**
      * Get the value of post_id
      */ 
-    public function getPost_id()
+    public function getPost_id(): ?int
     {
         return $this->post_id;
     }
@@ -88,7 +88,7 @@ class Comment
      *
      * @return  self
      */ 
-    public function setPost_id($post_id)
+    public function setPost_id($post_id): self
     {
         $this->post_id = $post_id;
 
@@ -98,7 +98,7 @@ class Comment
     /**
      * Get the value of user_id
      */ 
-    public function getUser_id()
+    public function getUser_id(): ?int
     {
         return $this->user_id;
     }
@@ -108,7 +108,7 @@ class Comment
      *
      * @return  self
      */ 
-    public function setUser_id($user_id)
+    public function setUser_id($user_id): self
     {
         $this->user_id = $user_id;
 
@@ -118,7 +118,7 @@ class Comment
     /**
      * Get the value of user_id
      */ 
-    public function getNickname()
+    public function getNickname(): ?string
     {
         return $this->nickname;
     }
@@ -128,7 +128,7 @@ class Comment
      *
      * @return  self
      */ 
-    public function setNickname($nickname)
+    public function setNickname($nickname): self
     {
         $this->nickname = $nickname;
 

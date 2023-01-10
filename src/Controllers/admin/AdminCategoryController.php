@@ -24,10 +24,10 @@ class AdminCategoryController extends AbstractController
      * newCategoryController
      *
      * @param  mixed $request httpFoundationRequest
-     * @return twig render
+     * @return Response|RedirectResponse
      * get infos in $request by POST method then send request in repository if not send creation form
      */
-    public function newCategoryController($request)
+    public function newCategoryController($request):Response|RedirectResponse
     {
         $auth = new Auth();
         $session = new session();
@@ -59,10 +59,10 @@ class AdminCategoryController extends AbstractController
     /**
      * getAllCategoryController
      *
-     * @return twig render
+     * @return Response|RedirectResponse
      * Send a request to get All infos in the table
      */
-    public function getAllCategoryController()
+    public function getAllCategoryController():Response|RedirectResponse
     {
         if($this->checkingAuth())
         {
@@ -88,10 +88,10 @@ class AdminCategoryController extends AbstractController
      * updateCategoryController
      *
      * @param  mixed $request httpFoundationRequest
-     * @return twig render
+     * @return Response|RedirectResponse
      * get infos in $request by POST method then send request in repository if not send prefilled update form
      */
-    public function updateCategoryController($request)
+    public function updateCategoryController($request):Response|RedirectResponse
     {
         $auth = new Auth();
         $session = new session();
@@ -143,10 +143,10 @@ class AdminCategoryController extends AbstractController
      * deleteCategoryController
      *
      * @param  mixed $request
-     * @return twig render
+     * @return RedirectResponse
      * get id from request then send delete request to repository then return the list
      */
-    public function deleteCategoryController($request)
+    public function deleteCategoryController($request):RedirectResponse
     { 
         $auth = new Auth();
         $session = new session();

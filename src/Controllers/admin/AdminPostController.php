@@ -31,17 +31,19 @@ class AdminPostController extends AbstractController
      * newPostController
      *
      * @param  mixed $request httpFoundationRequest
-     * @return twig render
+     * @return Response|RedirectResponse
      * get infos in $request by POST method then send request in repository if not send creation form
      */
-    public function newPostController($request)
+    public function newPostController($request):Response|RedirectResponse
     {
         $auth = new Auth();
         $session = new session();
 
+        //Checking role of user 
         if($this->checkingAuth())
         {
 
+            //if is POST method and CSRF Token ok, Add the post to DB
             if($request->getMethod() ==='POST'&& $auth->tokenChecking($session->get('token'),$request->request->get('usertoken')))
             {   
                 //-----Import Image-----//
@@ -57,15 +59,15 @@ class AdminPostController extends AbstractController
                 $date = new \DateTime();
                 $date = $date->format('Y-m-d H:i:s');        
                 $newpost = new Post();
-                $newpost->setTitle($request->request->get('title'));
-                $newpost->setChapo($request->request->get('chapo'));   
-                $newpost->setAuthor($request->request->get('author'));   
-                $newpost->setContent($request->request->get('content'));  
-                $newpost->setPicture($picture->getClientOriginalName());
-                $newpost->setSlug($request->request->get('slug'));
-                $newpost->setCreated_at($date);
-                $newpost->setUpdated_at($date);
-                $newpost->setUser_id($session->get('id'));
+                $newpost->setTitle($request->request->get('title'))
+                        ->setChapo($request->request->get('chapo'))  
+                        ->setAuthor($request->request->get('author'))   
+                        ->setContent($request->request->get('content')) 
+                        ->setPicture($picture->getClientOriginalName())
+                        ->setSlug($request->request->get('slug'))
+                        ->setCreated_at($date)
+                        ->setUpdated_at($date)
+                        ->setUser_id($session->get('id'));
 
                 //create each repository to prepare insert request,
                 //$idpost is id return by the function addPost and in this function PDO->lastInsertId
@@ -102,11 +104,12 @@ class AdminPostController extends AbstractController
     /**
      * getAllPostController
      *
-     * @return twig render
+     * @return Response|RedirectResponse
      * Send a request to get All infos in the table
      */
-    public function getAllPostController($request)
-    {       
+    public function getAllPostController($request):Response|RedirectResponse
+    {   
+        //checking role of user   
         if($this->checkingAuth())
         {
 
@@ -152,54 +155,36 @@ class AdminPostController extends AbstractController
     /**
      * getPostController
      *
-     * @return twig render
+     * @return Response|RedirectResponse
      * Send a request to get one post then send a request to get all comment related to the post
      */
-    public function getPostController($request)
+    public function getPostController($request):Response|RedirectResponse
     {
         $auth = new Auth();
         $session = new session();
 
+        //Checking role of user
         if($this->checkingAuth())
         {
-
-            $slug = array(0 => $request->get('slug_post'));        
+            //Repo function var and need to be an array
+            $slug = array(0 => $request->get('slug_post')); 
             
-            if($request->getMethod() ==='POST'&& $auth->tokenChecking($session->get('token'),$request->request->get('usertoken')))
+            try
             {
-                try
-                {
-                    $repoPost = new PostRepository();
-                    $data = $repoPost->getOnePost($slug);               
-                    
-                    $repoComment = new CommentRepository();
-                    $idPost= array(0 => $data[0]->getId());       
-                    $datacomment = $repoComment->getAllComment($idPost);                            
-                    
-                    $content = $this->render('admin/post/post.html.twig', ['post' => $data[0],'comments' => $datacomment]);
-                }
-                catch (PDOException $exception) {
-                    $this->getContainer()->get('log')->error($exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    $repoPost = new PostRepository();
-                    $data = $repoPost->getOnePost($slug);             
+                $repoPost = new PostRepository();
+                $data = $repoPost->getOnePost($slug);             
+            
+                $repoComment = new CommentRepository();
+                $idPost= array(0 => $data[0]->getId());       
+                $datacomment = $repoComment->getAllComment($idPost);                           
                 
-                    $repoComment = new CommentRepository();
-                    $idPost= array(0 => $data[0]->getId());       
-                    $datacomment = $repoComment->getAllComment($idPost);                           
-                    
-                }
-                catch (PDOException $exception) {
-                    $this->getContainer()->get('log')->error($exception);
-                }
-                $content = $this->render('admin/post/post.html.twig', ['post' => $data[0],'comments' => $datacomment]);
-
-            }       
+            }
+            catch (PDOException $exception) {
+                $this->getContainer()->get('log')->error($exception);
+            }
+            $content = $this->render('admin/post/post.html.twig', ['post' => $data[0],'comments' => $datacomment]);
+                
+                 
             
             return new Response($content);
         }
@@ -213,35 +198,39 @@ class AdminPostController extends AbstractController
      * updatePostController
      *
      * @param  mixed $request httpFoundationRequest
-     * @return twig render
+     * @return Response|RedirectResponse
      * get infos in $request by POST method then send request in repository if not send prefilled update form
      */
-    public function updatePostController($request)
+    public function updatePostController($request):Response|RedirectResponse
     {
         $auth = new Auth();
         $session = new session();
 
+        // checking role of user
         if($this->checkingAuth())
         {
 
+            //If method is post and CSRF token OK, Post is updated to DB
             if($request->getMethod() ==='POST'&& $auth->tokenChecking($session->get('token'),$request->request->get('usertoken')))
             {    
-                         
+                //create post object from request        
                 $newpost = new Post();
                 $date = new \DateTime();
                 $date = $date->format('Y-m-d H:i:s'); 
-                $newpost->setId($request->request->get('id'));
-                $newpost->setTitle($request->request->get('title'));
-                $newpost->setChapo($request->request->get('chapo'));   
-                $newpost->setAuthor($request->request->get('author'));   
-                $newpost->setContent($request->request->get('content'));           
-                $newpost->setSlug($request->request->get('slug'));
-                $newpost->setCreated_at($request->request->get('created_at'));
-                $newpost->setUpdated_at($date);            
-                $newpost->setUser_id($request->request->get('user_id'));            
+                $newpost->setId($request->request->get('id'))
+                        ->setTitle($request->request->get('title'))
+                        ->setChapo($request->request->get('chapo'))  
+                        ->setAuthor($request->request->get('author'))   
+                        ->setContent($request->request->get('content'))           
+                        ->setSlug($request->request->get('slug'))
+                        ->setCreated_at($request->request->get('created_at'))
+                        ->setUpdated_at($date)            
+                        ->setUser_id($request->request->get('user_id'));            
                 
+                //Image process
                 $picture_path = $request->files->get('picture_path');                
 
+                //control if a file already exist if not import the file
                 if(!empty($picture_path))
                 {           
                     //-----Import Image-----//
@@ -261,6 +250,7 @@ class AdminPostController extends AbstractController
             
                 try
                 {
+                    //get Idpost then do modification in associative table 
                     $idpost = array(0 => $newpost->GetId());
                     $repoPost = new PostRepository();
                     $repoPost->updatePost($newpost);
@@ -313,7 +303,7 @@ class AdminPostController extends AbstractController
                                             'tagsSelected' => $dataselectedTags
                                         ]);
             }
-            return new Response($content);
+            return new Response($content);//return form with post info or handle form to update post
         }
         else
             return new RedirectResponse($this->getContainer()->get('urlGenerator')->generate('index'));
@@ -323,11 +313,11 @@ class AdminPostController extends AbstractController
      * deletePostController
      *
      * @param  mixed $request
-     * @return twig render
+     * @return RedirectResponse
      * get id from request then send delete request to repository then return the list
      * all links related to the post are deleted ON CASCADE, like comments, post_cat, tag_post
      */
-    public function deletePostController($request)
+    public function deletePostController($request):RedirectResponse
     {
         $auth = new Auth();
         $session = new session();        

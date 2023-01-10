@@ -13,20 +13,25 @@ use Aleyg\Core\Pattern\Container;
 
 
 class HomePageController extends AbstractController
-{    
-    
+{           
+    /**
+     * index
+     * Get Homepage or Handle Contact Form
+     * @param  Resquest $request
+     * @return Response
+     */
     public function index(Request $request): Response
     {
-        
+        //session creation
         $session = new session();
 
-        if($request->getMethod() ==='POST')
-        {
+        if($request->getMethod() ==='POST') {
             $mail = new mailer();
             $mail->sendEmail($request);
+
             return new Response($this->render('home.html.twig', ['title'=> 'Developper needed', 'register'=> 'false']));
         }
-        else
-            return new Response($this->render('home.html.twig', ['title'=> 'Developper needed', 'register'=> 'false','session' =>$session]));           
+        
+        return new Response($this->render('home.html.twig', ['title'=> 'Developper needed', 'register'=> 'false','session' =>$session]));           
     }
 }

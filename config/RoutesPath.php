@@ -24,6 +24,9 @@ Class RoutesPath{
 
         static function getRoutes()
         {
+
+            //ROUTES COLLECTION
+
             $routes = new RouteCollection();
 
             
@@ -32,7 +35,6 @@ Class RoutesPath{
             '_controller' =>[HomePageController::class,'index'],
             'authorization'=>'authorized'
             ]));
-
 
             $routes->add('signup', new Route('/signup',[
             '_controller' =>[RegisterController::class,'signup']

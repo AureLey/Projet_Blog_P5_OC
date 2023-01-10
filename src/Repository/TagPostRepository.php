@@ -12,6 +12,14 @@ use Aleyg\Core\DataBase\Database;
 
 class TagPostRepository extends AbstractRepository
 {
+
+        
+    /**
+     * addTagPost
+     * Make the link between the table Post and Tag
+     * @param  array $arrayTp
+     * @param  array $idpost     
+     */
     public function addTagPost($arrayTp,$idpost)
     {   
         $database = new DataBase();         
@@ -33,7 +41,6 @@ class TagPostRepository extends AbstractRepository
      *
      * @param  mixed $arrayTp All Tags id selected in updateForm
      * @param  mixed $idpost  is an array, represent id post.In first for execute quer, then extract the value to insert into query
-     * @return void
      */
     public function updateTagPost($arrayTp,$idpost)
     {

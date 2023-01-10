@@ -20,53 +20,51 @@
 					</div>
 				</div>
 				<div class="card mb-4">
-					<div class="block_comment">
-						<form method="post" action="">						
-							<div class="card-header">
-								<i class="fas fa-table me-1"></i>
-								Liste des commentaires
-							</div>
-							<div class="card-body">
-								<table id="datatablesSimple">
-									<thead>
-										<tr class="bg-info">
-											<th>Auteur</th>
-											<th>Commentaire</th>
-											<th>Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										{% for comment in comments %}
-											{% if comment is not empty %}
-												{% if comment.comment_status == false  %}
-													<tr class="bg-warning">
+					<div class="block_comment">						
+						<div class="card-header">
+							<i class="fas fa-table me-1"></i>
+							Liste des commentaires
+						</div>
+						<div class="card-body">
+							<table id="datatablesSimple">
+								<thead>
+									<tr class="bg-info">
+										<th>Auteur</th>
+										<th>Commentaire</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for comment in comments %}
+										{% if comment is not empty %}
+											{% if comment.comment_status == false  %}
+												<tr class="bg-warning">
+													<td>{{ comment.nickname }}</td>
+													<td>{{ comment.content }}</td>
+													<td><a href="{{path('admin_validcomment', {slug_post:post.slug, id:comment.id})}}"  class="btn btn-success  mb-3">Modifier</a></td>
+												</tr>
+											{% else %}
+												
+													<tr class="bg-light">
 														<td>{{ comment.nickname }}</td>
 														<td>{{ comment.content }}</td>
-														<td><a href="{{path('admin_validcomment', {slug_post:post.slug, id:comment.id})}}"  class="btn btn-success  mb-3">Modifier</a></td>
+														<td>Validé</td>
 													</tr>
-												{% else %}
-													
-														<tr class="bg-light">
-															<td>{{ comment.nickname }}</td>
-															<td>{{ comment.content }}</td>
-															<td>Validé</td>
-														</tr>
-												{% endif %}
-											{% else %}
-					 							<div class="text-dark mb-3  fst-italic"><h2>Aucun commentaire	</div>
-											{% endif %}					
-										{% endfor %}
-									</tbody>
-									<tfoot>
-										<tr class="bg-success">
-											<th>Auteur</th>
-											<th>Commentaire</th>
-											<th>Status</th>
-										</tr>
-									</tfoot>
-								</table>
-							</div>								
-						</form>
+											{% endif %}
+										{% else %}
+											<div class="text-dark mb-3  fst-italic"><h2>Aucun commentaire	</div>
+										{% endif %}					
+									{% endfor %}
+								</tbody>
+								<tfoot>
+									<tr class="bg-success">
+										<th>Auteur</th>
+										<th>Commentaire</th>
+										<th>Status</th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>							
 					</div>
 				</div>
 			</div>

@@ -12,8 +12,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class AdminController extends AbstractController
-{
-    public function index()
+{    
+    /**
+     * DashBoard Acces checking if the user is granted else return to Homepage
+     *
+     * @return Response|RedirectResponse
+     */
+    public function index():Response|RedirectResponse
     {
         if($this->checkingAuth())
         {

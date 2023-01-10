@@ -12,6 +12,13 @@ use Aleyg\Core\DataBase\Database;
 
 class PostCatRepository extends AbstractRepository
 {
+        
+    /**
+     * addPostCat
+     * Make the link between the table Post and Category
+     * @param  array $arrayPc
+     * @param  array $idpost     
+     */
     public function addPostCat($arrayPc,$idpost)
     {   
         $database = new DataBase();         
@@ -31,9 +38,8 @@ class PostCatRepository extends AbstractRepository
     /**
      * updatePostCat
      *
-     * @param  mixed $arrayPc All categories id selected in updateForm
-     * @param  mixed $idpost  is an array, represent id post in first for execute query. then extract the value to insert into query
-     * @return void
+     * @param  array $arrayPc All categories id selected in updateForm
+     * @param  array $idpost  is an array, represent id post in first for execute query. then extract the value to insert into query
      */
     public function updatePostCat($arrayPc,$idpost)
     {
